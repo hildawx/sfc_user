@@ -5288,7 +5288,7 @@ input.list-view-search {
 }
 .email-wrapper .email-sidebar {
   background: #2d3446;
-  width: 250px;
+  width: 180px;
   float: left;
   padding-left: 47px;
   height: 100%;
@@ -5455,7 +5455,7 @@ input.list-view-search {
 }
 .email-wrapper .email-opened {
   /*margin-left: 610px;*/
-  margin-left: 250px;
+  margin-left: 180px;
   position: relative;
   overflow: auto;
   height: 100%;
@@ -5588,7 +5588,7 @@ input.list-view-search {
 */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
   .email-wrapper .email-sidebar {
-    float: none;
+/*    float: none;
     height: auto;
     left: 50%;
     margin-left: -155px;
@@ -5597,8 +5597,8 @@ input.list-view-search {
     right: 0;
     top: 0;
     z-index: 9999;
-    display: none;
-    border-radius: 10px;
+    display: block;
+    border-radius: 10px;*/
   }
   .email-wrapper .email-sidebar .btn-compose {
     display: none;
@@ -5619,7 +5619,7 @@ input.list-view-search {
 }
 /*** General tablets and phones ***/
 @media (max-width: 979px) {
-  .email-wrapper .email-sidebar {
+/*  .email-wrapper .email-sidebar {
     float: none;
     height: auto;
     left: 50%;
@@ -5631,7 +5631,7 @@ input.list-view-search {
     z-index: 9999;
     display: none;
     border-radius: 10px;
-  }
+  }*/
   .email-wrapper .email-sidebar .btn-compose {
     display: none;
   }
@@ -8202,11 +8202,11 @@ Responsive Util
 }
 /* Landscape view of all tablet devices */
 @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
-  .page-sidebar .sidebar-menu .menu-items ul {
+/*  .page-sidebar .sidebar-menu .menu-items ul {
     -webkit-transform: translateZ(0);
     -webkit-backface-visibility: hidden;
     -webkit-perspective: 1000;
-  }
+  }*/
   .page-container .page-content-wrapper .content {
     padding-top: 60px;
   }

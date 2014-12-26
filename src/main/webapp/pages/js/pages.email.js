@@ -142,13 +142,13 @@
         // $('.email-sidebar').click(function(e) {
         //     e.stopPropagation();
         // })
-        $(window).resize(function() {
-            if ($(window).width() <= 1024) {
-                $('.email-sidebar').hide();
-            } else {
-                $('.email-list').removeClass('slideLeft');
-                $('.email-sidebar').show();
-            }
-        });
+//        $(window).resize(function() {
+//            if ($(window).width() <= 1024) {
+//                $('.email-sidebar').hide();
+//            } else {
+//                $('.email-list').removeClass('slideLeft');
+//                $('.email-sidebar').show();
+//            }
+//        });
     });
 })(window.jQuery);

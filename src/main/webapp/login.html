@@ -69,7 +69,7 @@
 
     // 登录成功写Cookie
     function storeCookie(s,id,uname){
-        setCookie("nm", uname ,1);
+        setCookie("um", uname ,1);
         setCookie("role", s ,1);
         setCookie("id", id, 1);
     }
@@ -81,31 +81,39 @@
                var username = $("#username").val();
                var password = $("#password").val();
                
-                $.ajax({
-                    url:"user/PortalCertificateServlet",
-                    data:{username:username,password:password},
-                    type:"POST",
-                    dataType:"json",
-                    success:function(data){
-                        if(data){
-                            var status = data.status;
-                            if(status == "parent"){
-                                storeCookie(status,data.id,username);
-                                window.location.href = "main.html";
-                            }else if(status == "children"){
-                                storeCookie(status,data.id,username);
-                                window.location.href = "systemConfig.html";
-                            }else if(status == "failuer"){
-                                alert("登录失败！");
-                            }
-                        }else{
-                            alert("登录失败！");
-                        }
-                    },
-                    error:function(e){
-                        alert(e.message);
-                    }
-                });
+               /* 固定用户名和密码Demo */
+               if(username == "admin" && password == "1234"){
+                   storeCookie("parent","001",username);
+                   window.location.href = "main.html";
+               }else{
+                   alert("用户名或密码不正确！");
+               }
+               
+//                $.ajax({
+//                    url:"user/PortalCertificateServlet",
+//                    data:{username:username,password:password},
+//                    type:"POST",
+//                    dataType:"json",
+//                    success:function(data){
+//                        if(data){
+//                            var status = data.status;
+//                            if(status == "parent"){
+//                                storeCookie(status,data.id,username);
+//                                window.location.href = "main.html";
+//                            }else if(status == "children"){
+//                                storeCookie(status,data.id,username);
+//                                window.location.href = "systemConfig.html";
+//                            }else if(status == "failuer"){
+//                                alert("登录失败！");
+//                            }
+//                        }else{
+//                            alert("登录失败！");
+//                        }
+//                    },
+//                    error:function(e){
+//                        alert(e.message);
+//                    }
+//                });
 
             }
         });

@@ -26,7 +26,7 @@
     <div class="container-fluid padding-25 sm-padding-10">
         <div class="row">
             <div role="alert" class="alert alert-info">
-                <strong> 欢迎进入SFC！当前用户 <span id="current_user"></span>！</strong> 当前为用户信息页，可以查看上网信息。
+                <strong> 欢迎进入SFC！</strong> 当前为用户信息页，可以查看上网信息。
             </div>
             
             <div class="col-md-6 col-lg-6 col-xlg-6">
@@ -47,25 +47,25 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <p class="pull-left">用户名</p>
-                                                        <p class="pull-right bold" id="username"></p>
+                                                        <p class="pull-right bold" id="username"> admin</p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <p class="pull-left">上网IP</p>
-                                                        <p class="pull-right bold" id="ip"></p>
+                                                        <p class="pull-right bold" id="ip"> 192.168.1.113</p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <p class="pull-left">上网时长</p>
-                                                        <p class="pull-right bold" id="online_time"></p>
+                                                        <p class="pull-right bold" id="online_time"> 00:00:50</p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <p class="pull-left">上网速率</p>
-                                                        <p class="pull-right bold" id="speed"></p>
+                                                        <p class="pull-right bold" id="speed"> 512kb/s</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -96,33 +96,34 @@
         $(function(){
             var role = getCookie("role");
             var id = getCookie("id");
-            $.ajax({
-                url:"",
-                data:{},
-                type:"POST",
-                dataType:"json",
-                success:function(data){
-                    if(data){
-                        if(data.username){
-                            $("#username").html(data.username);
-                        }
-                        if(data.IP){
-                            $("#ip").html(data.IP);
-                        }
-                        if(data.online_time){
-                            $("#online_time").html(data.online_time);
-                        }
-                        if(data.speed){
-                            $("#speed").html(data.speed);
-                        }
-                    }else{
-                        alert("获取数据失败！");
-                    }
-                },
-                error:function(e){
-                    alert(e.message);
-                }
-            });
+            console.log(role+" - "+id);
+//            $.ajax({
+//                url:"user/UserInfo",
+//                data:{role:role,id:id},
+//                type:"POST",
+//                dataType:"json",
+//                success:function(data){
+//                    if(data){
+//                        if(data.username){
+//                            $("#username").html(data.username);
+//                        }
+//                        if(data.IP){
+//                            $("#ip").html(data.IP);
+//                        }
+//                        if(data.online_time){
+//                            $("#online_time").html(data.online_time);
+//                        }
+//                        if(data.speed){
+//                            $("#speed").html(data.speed);
+//                        }
+//                    }else{
+//                        alert("获取数据失败！");
+//                    }
+//                },
+//                error:function(e){
+//                    alert(e.message);
+//                }
+//            });
         });
     </script>
 
