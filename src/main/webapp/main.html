@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+    <meta charset="utf-8">
+    <title>SFC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
+    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css">
+    <style>
+      .email-wrapper .email-opened { overflow: hidden; margin-left: 180px;}
+      .email-wrapper .email-sidebar { width: 180px;}
+    </style>
+
+</head>
+
+<body class="fixed-header">
+
+    <div class="page-container">
+
+        <div class="header ">
+
+           <!--  <div class="pull-left full-height visible-sm visible-xs">
+
+                <div class="sm-action-bar">
+                    <a href="#" class="btn-link toggle-sidebar" data-toggle="sidebar">
+                        <span class="icon-set menu-hambuger"></span>
+                    </a>
+                </div>
+
+            </div> -->
+
+            <div class="pull-right full-height visible-sm visible-xs">
+
+                <div class="sm-action-bar">
+                    <span class="semi-bold">David</span> <span class="text-master">Nest</span>
+                </div>
+
+            </div>
+
+            <div class=" pull-left sm-table">
+                <div class="header-inner">
+                    <a href="#" class="toggle-email-sidebar"> MENU <span class="caret"></span></a>
+                    <div class="brand inline">
+                        <h4>SFC</h4>
+                    </div>
+                </div>
+            </div>
+            <div class=" pull-right">
+
+                <div class="visible-lg visible-md m-t-10">
+                    <div class="pull-left p-r-10 p-t-10 fs-16 font-heading">
+                        <span class="semi-bold">David</span> <span class="text-master">Nest</span>
+                    </div>
+                    <div class="thumbnail-wrapper d32 circular inline m-t-5">
+                        <img src="assets/img/profiles/avatar.jpg" alt="" data-src="assets/img/profiles/avatar.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg" width="32" height="32">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="page-content-wrapper full-height">
+
+            <div class="content full-height">
+
+                <div class="email-wrapper">
+
+                    <nav class="email-sidebar padding-30">
+
+                        <ul class="main-menu">
+                            <li class="active">
+                                <a href="subpage.html" target="mainPage">
+                                    <span class="title"><i class="pg-folder"></i> 用户信息</span>
+                                </a>
+                            </li>
+                            <li class="">
+                                <a href="systemConfig.html" target="mainPage">
+                                    <span class="title"><i class="pg-servers"></i> 系统配置</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="ipv6SpeedUp.html" target="mainPage">
+                                    <span class="title"><i class="pg-sent"></i> IPv6加速</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="title"><i class="pg-home"></i> 家长控制</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="title"><i class="pg-minus_circle"></i> 广告屏蔽</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span class="title"><i class="pg-spam"></i> 远程下载</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <div class="email-opened">
+                        <iframe id="mainPage" name="mainPage" src="info.html" width="100%" height="" scrolling="auto" frameborder="0"></iframe>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+    <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+    <script src="pages/js/pages.email.js" type="text/javascript"></script>
+    <script type="text/javascript" src="pages/js/common.js"></script>
+
+    <script>
+
+      /* 取窗口可视范围的高度 */
+      function getClientHeight() {
+          var clientHeight = 0;
+          if (document.body.clientHeight && document.documentElement.clientHeight) {
+              var clientHeight = (document.body.clientHeight < document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+          } else {
+              var clientHeight = (document.body.clientHeight > document.documentElement.clientHeight) ? document.body.clientHeight : document.documentElement.clientHeight;
+          }
+          return clientHeight;
+      }
+
+      // 重新定义iframe的高度
+      function refreshHeight() {
+          var h = getClientHeight() - 60;
+          $("#mainPage").attr("height", h + "px");
+      }
+
+      $(window).resize(function(e) {
+          refreshHeight();
+      })
+
+      refreshHeight();
+
+      $(function(){
+          var lis = $(".main-menu").find("li");
+          lis.on("click",function(){
+              lis.removeClass("active");
+              $(this).addClass("active");
+          });
+      });
+    </script>
+
+</body>
+
+</html>
