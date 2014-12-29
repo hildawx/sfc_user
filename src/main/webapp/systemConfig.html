@@ -67,7 +67,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group form-group-default">
                                         <label>帐户名</label>
-                                        <input id="cUsername" type="text" class="form-control" placeholder="">
+                                        <input id="cUsername" type="text" class="form-control" placeholder="" disabled="">
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +156,7 @@
     <script type="text/javascript" src="pages/js/common.js"></script>
     
     <script>
-
+        
     // 创建儿童账号提交
     function createAccount(){
         var parentId = getCookie('id');
@@ -187,23 +187,23 @@
     }
 
     // 编辑儿童账号
-    function editAccount(id,name,pwd){
-        $('#editAccountModal').modal('show');
-        
-        $('#editAccountModal').on('shown.bs.modal', function (e) {
-            $("#eUsername").val(name);
-            $("#ePassword").val(pwd);
-            $("#eChildId").val(id);
-        })
-
-    }
+//    function editAccount(id,name,pwd){
+//        $('#editAccountModal').modal('show');
+//        
+//        $('#editAccountModal').on('shown.bs.modal', function (e) {
+//            $("#eUsername").val(name);
+//            $("#ePassword").val(pwd);
+//            $("#eChildId").val(id);
+//        });
+//
+//    }
 
     // 编辑账号提交
-    function editSubmit(){
-        var parentId = getCookie('id');
-        var childId = $("#eChildId").val();
-        var childId = $("#eUsername").val();
-        var childPassword = $("#ePassword").val();
+//    function editSubmit(){
+//        var parentId = getCookie('id');
+//        var childId = $("#eChildId").val();
+//        var childId = $("#eUsername").val();
+//        var childPassword = $("#ePassword").val();
 //        $.ajax({
 //            url:"user/ChildrenAccountUpdate",
 //            type:"POST",
@@ -220,17 +220,17 @@
 //                alert(e.message);
 //            }
 //        });
-            $("#editAccountModal").modal("hide");
-    }
+//            $("#editAccountModal").modal("hide");
+//    }
 
     // 删除儿童账号
-    function deleteAccount(id,name,pwd){
+    function deleteAccount(name,pwd){
         console.log(name + "-" + pwd);
         var parentId = getCookie('id');
 //        $.ajax({
 //            url:"user/ChildrenAccountDelete",
 //            type:"POST",
-//            data:{parentId:parentId,childId:childId},
+//            data:{parentId:parentId,childName:name,childPassword:pwd},
 //            success:function(data){
 //                if(data == "true"){
 //                    alert("删除成功！");
@@ -247,6 +247,11 @@
     }
 
     $(function() {
+        
+        // 添加儿童账号初始账号名
+        $('#addNewAccountModal').on('shown.bs.modal', function (e) {
+            $("#cUsername").val(getCookie("um"));
+        });
 
         // datatable
         $('#basicTable').dataTable({
@@ -260,17 +265,15 @@
             // "sAjaxSource": "user/ChildrenAccountList",
             "sAjaxSource": "ajax/data.txt",
             "aoColumns":[
-                {"sTitle":"ID", bVisible: false},
                 {"sTitle": "儿童帐户名"},
                 {"sTitle": "密码"},
                 {
                     "sTitle": "操作",
                     "targets": [3],
                     "render": function(data,type,full,meta){
-                        var id = full[0];
-                        var name = full[1];
-                        var pwd = full[2];
-                        return '<a href="javascript:;" onclick=editAccount("'+id+'","'+name+'","'+pwd+'")><i class="fa fa-pencil"></i> 编辑</a> &nbsp;&nbsp;&nbsp;<a href="javascript:;" onclick=deleteAccount("'+id+'","'+name+'","'+pwd+'")><i class="fa fa-trash-o"></i> 删除</a>';
+                        var name = full[0];
+                        var pwd = full[1];
+                        return '<a href="javascript:;" onclick=deleteAccount("'+name+'","'+pwd+'")><i class="fa fa-trash-o"></i> 删除</a>';
                     }
                 }
             ]
