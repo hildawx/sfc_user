@@ -195,33 +195,33 @@
                         childPassword:getCookie("pwd")
                     };
                 }
-                //            $.ajax({
-                //                url:"user/UserInfo",
-                //                data:data,
-                //                type:"POST",
-                //                dataType:"json",
-                //                success:function(data){
-                //                    if(data){
-                //                        if(data.username){
-                //                            $("#username").html(data.username);
-                //                        }
-                //                        if(data.IP){
-                //                            $("#ip").html(data.IP);
-                //                        }
-                //                        if(data.online_time){
-                //                            $("#online_time").html(data.online_time);
-                //                        }
-                //                        if(data.speed){
-                //                            $("#speed").html(data.speed);
-                //                        }
-                //                    }else{
-                //                        alert("获取数据失败！");
-                //                    }
-                //                },
-                //                error:function(e){
-                //                    alert(e.message);
-                //                }
-                //            });
+                $.ajax({
+                    url:"user/UserInfo",
+                    data:data,
+                    type:"POST",
+                    dataType:"json",
+                    success:function(data){
+                        if(data){
+                            if(data.username){
+                                $("#username").html(data.username);
+                            }
+                            if(data.IP){
+                                $("#ip").html(data.IP);
+                            }
+                            if(data.online_time){
+                                $("#online_time").html(data.online_time);
+                            }
+                            if(data.speed){
+                                $("#speed").html(data.speed);
+                            }
+                        }else{
+                            alert("获取数据失败！");
+                        }
+                    },
+                    error:function(e){
+                        alert(e.message);
+                    }
+                });
             });
         </script>
 

@@ -163,22 +163,22 @@
         var childName = $("#cUsername").val();
         var childPassword = $("#cPassword").val();
         if(childName != "" && childPassword != ""){
-//            $.ajax({
-//                url:"user/ChildrenAccountAdd",
-//                type:"POST",
-//                data:{parentId:parentId,childName:childName,childPassword:childPassword},
-//                success:function(data){
-//                    if(data == "true"){
-//                        alert("创建成功！");
-//                    }else{
-//                        alert("创建失败！");
-//                    }
-//                    window.location.reload();
-//                },
-//                error:function(e){
-//                    alert(e.message);
-//                }
-//            });
+            $.ajax({
+                url:"user/ChildrenAccountAdd",
+                type:"POST",
+                data:{parentId:parentId,childName:childName,childPassword:childPassword},
+                success:function(data){
+                    if(data == "true"){
+                        alert("创建成功！");
+                    }else{
+                        alert("创建失败！");
+                    }
+                    window.location.reload();
+                },
+                error:function(e){
+                    alert(e.message);
+                }
+            });
               $("#addNewAccountModal").modal("hide");
         }else{
             alert("账户名或密码不能为空！");
@@ -227,22 +227,22 @@
     function deleteAccount(name,pwd){
         console.log(name + "-" + pwd);
         var parentId = getCookie('id');
-//        $.ajax({
-//            url:"user/ChildrenAccountDelete",
-//            type:"POST",
-//            data:{parentId:parentId,childName:name,childPassword:pwd},
-//            success:function(data){
-//                if(data == "true"){
-//                    alert("删除成功！");
-//                }else{
-//                    alert("删除失败！");
-//                }
-//                window.location.reload();
-//            },
-//            error:function(e){
-//                alert(e.message);
-//            }
-//        });
+        $.ajax({
+            url:"user/ChildrenAccountDelete",
+            type:"POST",
+            data:{parentId:parentId,childName:name,childPassword:pwd},
+            success:function(data){
+                if(data == "true"){
+                    alert("删除成功！");
+                }else{
+                    alert("删除失败！");
+                }
+                window.location.reload();
+            },
+            error:function(e){
+                alert(e.message);
+            }
+        });
 
     }
 
@@ -262,8 +262,8 @@
                 "url": "pages/Chinese.json"
             },
             "bProcessing": true,
-            // "sAjaxSource": "user/ChildrenAccountList",
-            "sAjaxSource": "ajax/data.txt",
+            "sAjaxSource": "user/ChildrenAccountList",
+//            "sAjaxSource": "ajax/data.txt",
             "aoColumns":[
                 {"sTitle": "儿童帐户名"},
                 {"sTitle": "密码"},

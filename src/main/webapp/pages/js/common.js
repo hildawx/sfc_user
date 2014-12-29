@@ -20,4 +20,4 @@ function setCookie(key, value, t) {
 // 所有弹窗关闭将窗内的输入框置空
 $(".modal").on('hidden.bs.modal', function (e) {
     $(this).find("input").val("");
-})
+});
