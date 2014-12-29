@@ -5288,7 +5288,7 @@ input.list-view-search {
 }
 .email-wrapper .email-sidebar {
   background: #2d3446;
-  width: 180px;
+  width: 200px;
   float: left;
   padding-left: 47px;
   height: 100%;
@@ -5455,7 +5455,7 @@ input.list-view-search {
 }
 .email-wrapper .email-opened {
   /*margin-left: 610px;*/
-  margin-left: 180px;
+  margin-left: 200px;
   position: relative;
   overflow: auto;
   height: 100%;
@@ -5654,7 +5654,8 @@ input.list-view-search {
   }
   .email-wrapper .email-opened {
     margin-left: 0;
-    width: 100%;
+    /*width: 100%;*/
+    width:auto;
   }
   .email-wrapper .email-opened .email-content-wrapper {
     overflow: auto;
