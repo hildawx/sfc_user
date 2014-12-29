@@ -248,6 +248,8 @@
 
     $(function() {
         
+        var parentId = getCookie("id"); 
+        
         // 添加儿童账号初始账号名
         $('#addNewAccountModal').on('shown.bs.modal', function (e) {
             $("#cUsername").val(getCookie("um"));
@@ -262,7 +264,7 @@
                 "url": "pages/Chinese.json"
             },
             "bProcessing": true,
-            "sAjaxSource": "user/ChildrenAccountList",
+            "sAjaxSource": "user/ChildrenAccountList?parentId="+parentId,
 //            "sAjaxSource": "ajax/data.txt",
             "aoColumns":[
                 {"sTitle": "儿童帐户名"},
