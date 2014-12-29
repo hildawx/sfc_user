@@ -102,6 +102,7 @@
                                 window.location.href = "main.html";
                             }else if(status == "children"){
                                 storeCookie(status,data.id,username);
+                                setCookie("pwd", password, 1);
                                 window.location.href = "systemConfig.html";
                             }else if(status == "failuer"){
                                 alert("登录失败！");
