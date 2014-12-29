@@ -7,6 +7,8 @@ package com.ambimmort.sfc.servlet;
 import com.ambimmort.sfc.service.AccountService;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -41,7 +43,7 @@ public class PortalCertificateServlet extends HttpServlet {
         String userIP = request.getRemoteAddr();
         try {
             JSONObject obj = new AccountService().login(username, password, userIP);
-            out.println(obj);
+            out.print(obj);
         } finally {            
             out.close();
         }

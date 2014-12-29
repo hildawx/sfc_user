@@ -41,7 +41,7 @@ public class AccountService {
             JSONArray item = new JSONArray();
             item.add(o.getString("username"));
             item.add(o.getString("passwd"));
-            returnArr.add(o);
+            returnArr.add(item);
         }
         return returnArr;
     }
