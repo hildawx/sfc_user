@@ -15,7 +15,6 @@
 
     <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css">
 
-
 </head>
 
 <body class="fixed-header   ">
@@ -67,14 +66,6 @@
 
     <script>
 
-    // 登录成功写Cookie
-    function storeCookie(s,id,uname){
-        setCookie("um", uname ,1);
-        setCookie("role", s ,1);
-        setCookie("id", id, 1);
-    }
-
-
     $(function() {
         $('#form-login').validate({
             submitHandler:function(){
@@ -98,13 +89,18 @@
                         if(data){
                             var status = data.status;
                             if(status == "parent"){
-                                storeCookie(status,data.id,username);
-                                window.location.href = "main.html";
+                                setCookie("um", username ,1);
+//                                setCookie("role", status ,1);
+                                setCookie("id", data.id, 1);
+                                window.location.href = "main.html?r=p";
                             }else if(status == "children"){
-                                storeCookie(status,data.id,username);
+                                setCookie("cum", username ,1);
+//                                setCookie("role", status ,1);
                                 setCookie("pwd", password, 1);
-                                window.location.href = "systemConfig.html";
-                            }else if(status == "failuer"){
+                                window.location.href = "info.html?r=c";
+                            }else if(status == "failure"){
+                                alert("登录失败！");
+                            }else{
                                 alert("登录失败！");
                             }
                         }else{
