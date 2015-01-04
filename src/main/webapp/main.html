@@ -39,11 +39,12 @@
                     <nav class="email-sidebar padding-30">
                         <p> <h4 class="text-white"><i class="fa fa-2x fa-building"> SFC</i></h4>                   
                         <span class="bg-complete text-white p-t-10 p-l-20 p-r-20 p-b-10 block text-center"><i class="fa fa-user"></i> <span role="" id="current_user"> admin</span></span>
-                        <button class="btn btn-cons btn-primary" onclick="logOut()"><i class="fa fa-out"></i>登出</button>
+                        <br>
+                        <button class="btn btn-cons btn-primary" onclick="logOut()"><i class="fa fa-sign-out"></i> 登出</button>
                         <hr class="">
                         <ul class="main-menu">
                             <li class="active">
-                                <a href="info.html" target="mainPage">
+                                <a href="info.html?r=p" target="mainPage" id="r-config">
                                     <span class="title"><i class="pg-folder"></i> 用户信息</span>
                                 </a>
                             </li>
@@ -76,7 +77,7 @@
                     </nav>
 
                     <div class="email-opened">
-                        <iframe id="mainPage" name="mainPage" src="info.html" width="100%" height="" scrolling="auto" frameborder="0"></iframe>
+                        <iframe id="mainPage" name="mainPage" src="info.html?r=p" width="100%" height="" scrolling="auto" frameborder="0"></iframe>
                     </div>
 
                 </div>
@@ -125,11 +126,8 @@
       function logOut(){
         var role = $("#current_user").attr("role");
         if(role == "p"){
-          delCookie("um");
-          delCookie("id");
-        }else{
-            delCookie("cum");
-            delCookie("pwd");
+            delCookie("um");
+            delCookie("id");
         }
         window.location.href = "login.html";
       }
@@ -142,12 +140,15 @@
           });
           
 //          var role = getCookie("role");
-            var role = GetQueryString("r");
+          var role = GetQueryString("r");
           if(role == "p"){
             $("#current_user").html(getCookie("um"));
-          }else{
+//            $("#r-config").attr("href","info.html?r=p");
+          }else if(role == "c"){
 //            $("#current_user").html(getCookie("cum"));
                 window.location.href = "info.html?r=c";
+          }else{
+              window.location.href = "login.html";
           }
           $("#current_user").attr("role",role);
           

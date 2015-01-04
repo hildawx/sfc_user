@@ -127,6 +127,13 @@
         <script type="text/javascript" src="pages/js/common.js"></script>
 
         <script>
+            // 登出
+            function logOut(){
+                delCookie("cum");
+                delCookie("pwd");
+                window.location.href = "login.html";
+            }
+      
             $(function() {
 //                var role = getCookie("role");
                 var role = GetQueryString("r");
@@ -139,9 +146,11 @@
                     };
                 }
                 if(role == "c"){
+                    var str = ' <div class="row"><button class="btn btn-cons pull-right btn-primary" onclick=logOut()> <i class="fa fa-sign-out"></i> 登出</button></div><br>';
+                    $(".container-fluid").prepend(str);
                     data = {
                         role:"children",
-                        id:id,
+//                        id:id,
                         childName:getCookie("cum"),
                         childPassword:getCookie("pwd")
                     };
