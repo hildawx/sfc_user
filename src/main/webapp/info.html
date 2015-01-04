@@ -115,55 +115,6 @@
                         </div>
                     </div>
                 </div>
-<!--                           <div class="col-md-6 col-lg-6 col-xlg-6">                
-                                <div class="panel no-border no-margin widget-loader-circle">
-                                    <div class="panel-heading">
-                                        <div class="panel-title">
-                                            <i class="pg-bag"></i> 用户信息
-                                        </div>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="p-l-5">
-                                            <div class="row">
-                                                <div class="col-md-12 col-xlg-6">
-                                                    <div class="widget-17-weather">
-                                                        <div class="row">
-                                                            <div class="col-sm-6 p-r-10">
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="pull-left">用户名</p>
-                                                                        <p class="pull-right bold" id="username"> admin</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="pull-left">上网IP</p>
-                                                                        <p class="pull-right bold" id="ip"> 192.168.1.113</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="pull-left">上网时长</p>
-                                                                        <p class="pull-right bold" id="online_time"> 00:00:50</p>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-12">
-                                                                        <p class="pull-left">上网速率</p>
-                                                                        <p class="pull-right bold" id="speed"> 512kb/s</p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                
-                            </div>-->
-
             </div>
         </div>
 
@@ -176,22 +127,31 @@
         <script type="text/javascript" src="pages/js/common.js"></script>
 
         <script>
+            // 登出
+            function logOut(){
+                delCookie("cum");
+                delCookie("pwd");
+                window.location.href = "login.html";
+            }
+      
             $(function() {
-                var role = getCookie("role");
-                var id = getCookie("id");
-                console.log(role + " - " + id);
+//                var role = getCookie("role");
+                var role = GetQueryString("r");
+                // console.log(role + " - " + id);
                 var data = {};
-                if(role == "parent"){
+                if(role == "p"){
                     data = {
-                        role:role,
-                        id:id
+                        role:"parent",
+                        id:getCookie("id")
                     };
                 }
-                if(role == "children"){
+                if(role == "c"){
+                    var str = ' <div class="row"><button class="btn btn-cons pull-right btn-primary" onclick=logOut()> <i class="fa fa-sign-out"></i> 登出</button></div><br>';
+                    $(".container-fluid").prepend(str);
                     data = {
-                        role:role,
-                        id:id,
-                        childName:getCookie("um"),
+                        role:"children",
+//                        id:id,
+                        childName:getCookie("cum"),
                         childPassword:getCookie("pwd")
                     };
                 }
