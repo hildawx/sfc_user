@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title></title>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta content="" name="description">
+        <meta content="" name="author">
+        <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
+        <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/bootstrap-tag/bootstrap-tagsinput.css" rel="stylesheet" type="text/css">
+        <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css">
+    </head>
+
+    <body>
+
+        <div class="container-fluid padding-25 sm-padding-10">
+            <div class="row">
+
+                <div class="col-md-6 col-lg-6 col-xlg-6">
+
+                    <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <i class="pg-bag"></i> 儿童上网参数配置
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" class="" id="parentContrlForm">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default">
+                                            <label>IP地址类型</label>
+                                            <select id="type" class="form-control">
+                                                <option value="IPv4">IPv4</option>
+                                                <option value="IPv6">IPv6</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default">
+                                            <label>IP地址</label>
+                                            <input id="ip" type="text" required="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-default ">
+                                    <label>url</label>
+                                    <input id="urls" class="tagsinput custom-tag-input" type="text" value="http://img30.360buyimg.com, www.baidu.com">
+                                </div>
+                                <div class="form-group form-group-default ">
+                                    <label>app</label>
+                                    <input id="apps" class="tagsinput custom-tag-input" type="text" value="QQ, 迅雷">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default">
+                                            <label>上网时长</label>
+                                            <input id="onlineTime" type="text" required="" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">确定</button>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-6 col-lg-6 col-xlg-6">
+                    <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <i class="pg-grid"></i> 已配置列表
+                            </div>
+                        </div>
+                        <div class="panel-body" id="configList">
+                            <div role="alert" class="alert alert-warning bordered">
+                                <p class="pull-left">192.168.1.114</p>
+                                <button class="close"></button>
+                                <p class="pull-right bold no-margin"><a href="#">查看配置</a></p>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div role="alert" class="alert alert-warning bordered">
+                                <p class="pull-left">fe80::9cc1:b8af:e4ff:a674%4 </p>
+                                <button class="close"></button>
+                                <p class="pull-right bold no-margin"><a href="#">查看配置</a></p>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    
+                </div>
+
+            </div>
+        </div>
+
+        <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <script src="assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="assets/plugins/bootstrap-tag/bootstrap-tagsinput.min.js"></script>
+        <script type="text/javascript" src="pages/js/common.js"></script>
+
+        <script>
+            
+            // 生成家长控制列表
+            function configList(data){
+                $("#configList").html("");
+                var str = "";
+                $.each(data,function(i,e){
+                    str += '<div role="alert" class="alert alert-warning bordered">';
+                    str += '<p class="pull-left">'+ e +'</p>';
+                    str += '<button class="close" onclick=configDel("'+e+'")></button>';
+                    str += '<p class="pull-right bold no-margin"><a href="#" onclick=configDetail("'+e+'")>查看配置</a></p>';
+                    str += '<div class="clearfix"></div>';
+                    str += '</div>';
+                });
+                $("#configList").append(str);
+            }
+            
+            // 删除家长控制
+            function configDel(addr){
+                $.ajax({
+                    url:"user/parentCtrlDel",
+                    data:{parentId:parentId,address:addr},
+                    type:"POST",
+                    success:function(data){
+                        if(data == "true"){
+                            alert("删除成功！");
+                            window.location.reload();
+                        }else{
+                            alert("删除失败！");
+                        }
+                    }
+                });
+            }
+            
+            // 查看家长控制详情
+            function configDetail(addr){
+                $.ajax({
+                    url:"user/ParentCtrlDetail",
+                    type:"POST",
+                    data:{parentId:parentId,address:addr},
+                    dataType:"json",
+                    success:function(data){
+                        $("#type").val(data.type);
+                        $("#ip").val(data.address);
+                        var urlArr = data.url_list;
+                        var ulen = urlArr.length;
+                        var urls = "";
+                        for(var i = 0; i< ulen;i++){
+                            if(i<ulen-2){
+                                urls += urlArr[i]+",";
+                            }else{
+                                urls += urlArr[i];
+                            }
+                        }
+                        $("#urls").val(urls);
+                        var appArr = data.app_list;
+                        var alen = appArr.length;
+                        var apps = "";
+                        for(var j=0;j<alen;j++){
+                            if(j<alen-2){
+                                apps += appArr[j]+",";
+                            }else{
+                                apps += appArr[j];
+                            }
+                        }
+                        $("#apps").val(apps);
+                        $("#onlineTime").val(data.online_time);
+                    }
+                });
+            }
+            
+            $(function() {
+                var parentId = getCookie('id');
+                $('.custom-tag-input').tagsinput({});
+                
+                // 获取家长控制列表
+                $.ajax({
+                   url:"user/ParentCtrlList" ,
+                   type:"POST",
+                   data:{parentId:parentId},
+                   dataType:"json",
+                   success:function(data){
+                       if(data){
+                           configList(JSON.parse(data));
+                       }else{
+                           alert("获取数据失败！");
+                       }
+                   }
+                });
+                
+                // 表单验证
+                $("#parentContrlForm").validate({
+                    submitHandler:function(){
+                        var type = $("#type option:selected").val();
+                        var ip = $("#ip").val();
+                        var urls = $("#urls").val().split(",");
+                        var apps = $("#apps").val().split(",");
+                        var onlineTime = $("#onlineTime").val();
+                        $.ajax({
+                            url:"user/ParentCtrl",
+                            data:{parentId:parentId,type:type,address:ip,url_list:JSON.stringify(urls),app_list:JSON.stringify(apps),online_time:onlineTime},
+                            type:"POST",
+                            dataType:"json",
+                            success:function(data){
+                                if(data == "true"){
+                                    var str = "";
+                                    str += '<div role="alert" class="alert alert-warning bordered">';
+                                    str += '<p class="pull-left">'+ ip +'</p>';
+                                    str += '<button data-dismiss="alert" class="close"></button>';
+                                    str += '<p class="pull-right bold no-margin"><a href="#">查看配置</a></p>';
+                                    str += '<div class="clearfix"></div>';
+                                    str += '</div>';
+                                    $("#configList").append(str);
+                                    alert("设置成功！");
+                                }else{
+                                    alert("设置失败！");
+                                }
+                            }
+                        });
+                    }
+                });
+
+            });
+
+        </script>
+    </body>
+
+</html>
