@@ -32,11 +32,11 @@
                     <div class="panel panel-transparent no-border no-margin widget-loader-circle">
                         <div class="panel-heading">
                             <div class="panel-title">
-                                <i class="pg-bag"></i> 儿童上网参数配置
+                                <i class="pg-minus_circle"></i> 广告屏蔽
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form role="form" class="" id="parentContrlForm">
+                            <form role="form" class="" id="adBlockForm">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-default">
@@ -54,21 +54,14 @@
                                         </div>
                                     </div>
                                 </div>
+<!--                                <div class="form-group form-group-default ">
+                                    <label>广告地址</label>
+                                    <input id="urls" class="tagsinput custom-tag-input" type="text" value="http://img30.360buyimg.com, www.baidu.com">
+                                </div>-->
                                 <div class="form-group form-group-default ">
-                                    <label>url</label>
-                                    <input id="urls" class="tagsinput custom-tag-input" type="text" required="" value="http://img30.360buyimg.com, www.baidu.com">
-                                </div>
-                                <div class="form-group form-group-default ">
-                                    <label>app</label>
-                                    <input id="apps" class="tagsinput custom-tag-input" type="text" required="" value="QQ, 迅雷">
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-group-default">
-                                            <label>上网时长</label>
-                                            <input id="onlineTime" type="text" required="" class="form-control">
-                                        </div>
-                                    </div>
+                                    <label>URL地址</label>
+                                    <span class="help-block">多个URL地址以换行分隔。</span>
+                                    <textarea id="urls" required="" class="form-control" style="height: 200px;"></textarea>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">确定</button>
@@ -88,21 +81,21 @@
                         <div class="panel-body" id="configList">
                             <div role="alert" class="alert alert-warning bordered">
                                 <p class="pull-left">192.168.1.114</p>
-                                <button class="close" onclick='configDel("192.168.1.114")'></button>
-                                <p class="pull-right bold no-margin"><a href="#" onclick='configDetail("192.168.1.114")'>查看配置</a></p>
+                                <button class="close"></button>
+                                <p class="pull-right bold no-margin"><a href="#">查看配置</a></p>
                                 <div class="clearfix"></div>
                             </div>
                             <div role="alert" class="alert alert-warning bordered">
                                 <p class="pull-left">fe80::9cc1:b8af:e4ff:a674%4 </p>
-                                <button class="close" onclick='configDel("fe80::9cc1:b8af:e4ff:a674%4")'></button>
-                                <p class="pull-right bold no-margin"><a href="#" onclick='configDetail("fe80::9cc1:b8af:e4ff:a674%4")'>查看配置</a></p>
+                                <button class="close"></button>
+                                <p class="pull-right bold no-margin"><a href="#">查看配置</a></p>
                                 <div class="clearfix"></div>
                             </div>
                         </div>
                     
-                </div>
-                </div>
+                    </div>
 
+                </div>
             </div>
         </div>
 
@@ -118,9 +111,9 @@
         <script type="text/javascript" src="pages/js/common.js"></script>
 
         <script>
-            var parentId = getCookie('id');
+             var parentId = getCookie('id');
             
-            // 生成家长控制列表
+            // 生成广告屏蔽列表
             function configList(data){
                 $("#configList").html("");
                 var str = "";
@@ -135,10 +128,10 @@
                 $("#configList").append(str);
             }
             
-            // 删除家长控制
+            // 删除广告屏蔽
             function configDel(addr){
                 $.ajax({
-                    url:"user/parentCtrlDel",
+                    url:"user/adBlockDel",
                     data:{parentId:parentId,address:addr},
                     type:"POST",
                     success:function(data){
@@ -152,10 +145,10 @@
                 });
             }
             
-            // 查看家长控制详情
+            // 查看广告屏蔽详情
             function configDetail(addr){
                 $.ajax({
-                    url:"user/ParentCtrlDetail",
+                    url:"user/adBlockDetail",
                     type:"POST",
                     data:{parentId:parentId,address:addr},
                     dataType:"json",
@@ -167,36 +160,23 @@
                         var urls = "";
                         for(var i = 0; i< ulen;i++){
                             if(i<ulen-2){
-                                urls += urlArr[i]+",";
+                                urls += urlArr[i]+"\n";
                             }else{
                                 urls += urlArr[i];
                             }
                         }
                         $("#urls").val(urls);
-                        var appArr = data.app_list;
-                        var alen = appArr.length;
-                        var apps = "";
-                        for(var j=0;j<alen;j++){
-                            if(j<alen-2){
-                                apps += appArr[j]+",";
-                            }else{
-                                apps += appArr[j];
-                            }
-                        }
-                        $("#apps").val(apps);
-                        $("#onlineTime").val(data.online_time);
                     }
                 });
             }
             
             $(function() {
-                
+               
                 $('.custom-tag-input').tagsinput({});
-                console.log(parentId);
                 
-                // 获取家长控制列表
+                // 获取广告屏蔽列表
                 $.ajax({
-                   url:"user/ParentCtrlList" ,
+                   url:"user/adBlockList" ,
                    type:"POST",
                    data:{parentId:parentId},
                    dataType:"json",
@@ -210,16 +190,14 @@
                 });
                 
                 // 表单验证
-                $("#parentContrlForm").validate({
+                $("#adBlockForm").validate({
                     submitHandler:function(){
                         var type = $("#type option:selected").val();
                         var ip = $("#ip").val();
-                        var urls = $("#urls").val().split(",");
-                        var apps = $("#apps").val().split(",");
-                        var onlineTime = $("#onlineTime").val();
+                        var urls = $("#urls").val().trim().split("\n");
                         $.ajax({
-                            url:"user/ParentCtrl",
-                            data:{parentId:parentId,type:type,address:ip,url_list:JSON.stringify(urls),app_list:JSON.stringify(apps),online_time:onlineTime},
+                            url:"user/adBlock",
+                            data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urls)},
                             type:"POST",
                             dataType:"json",
                             success:function(data){
