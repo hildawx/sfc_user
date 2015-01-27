@@ -244,8 +244,8 @@
                                                 var onlineTime = $("#onlineTime").val();
                                                 var hostAddr = $("#hostAddr").val();
                                                 $.ajax({
-                                                    url: hostAddr+"user/ParentCtrl",
-                                                    data: {parentId: parentId, type: type, address: ip, url_list: JSON.stringify(urls), app_list: JSON.stringify(apps), online_time: onlineTime},
+                                                    url: "user/ParentCtrl",
+                                                    data: {parentId: parentId, type: type, address: ip, url_list: JSON.stringify(urls), app_list: JSON.stringify(apps), online_time: onlineTime,host:hostAddr},
                                                     type: "POST",
                                                     dataType: "json",
                                                     success: function(data) {

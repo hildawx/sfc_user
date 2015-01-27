@@ -107,18 +107,18 @@
                     config.speed = speed;
                     config.unit = unit;
                     
-//                    $.ajax({
-//                        url:hostAddr+"user/Ipv6SpeedConfig",
-//                        data:{parentId;parentId,config:config},
-//                        type:"POST",
-//                        success:function(data){
-//                            if(data == "true"){
-//                                alert("修改成功！");
-//                            }else{
-//                                alert("修改失败！");
-//                            }
-//                        }
-//                    });
+                   $.ajax({
+                       url:"user/Ipv6SpeedConfig",
+                       data:{parentId;parentId,config:config,host:hostAddr},
+                       type:"POST",
+                       success:function(data){
+                           if(data == "true"){
+                               alert("修改成功！");
+                           }else{
+                               alert("修改失败！");
+                           }
+                       }
+                   });
                 }
             });
            

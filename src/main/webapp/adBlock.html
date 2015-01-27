@@ -201,8 +201,8 @@
                         var urls = $("#urls").val().trim().split("\n");
                         var hostAddr = $("#hostAddr").val();
                         $.ajax({
-                            url:hostAddr+"user/adBlock",
-                            data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urls)},
+                            url:"user/adBlock",
+                            data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urls),host:hostAddr},
                             type:"POST",
                             dataType:"json",
                             success:function(data){
