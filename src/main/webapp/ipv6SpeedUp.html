@@ -1,57 +1,130 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <title></title>
-    <meta http-equiv="content-type" content="text/html;charset=UTF-8">
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <head>
+        <title></title>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8">
+        <meta charset="utf-8">
+        <title></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-touch-fullscreen" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta content="" name="description">
-    <meta content="" name="author">
-    <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css">
-    <link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
-    <link href="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
-    <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
-    <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css">
-</head>
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-touch-fullscreen" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta content="" name="description">
+        <meta content="" name="author">
+        <link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/boostrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+        <link href="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.min.css" rel="stylesheet" type="text/css">
+        <link href="pages/css/pages-icons.css" rel="stylesheet" type="text/css">
+        <link class="main-stylesheet" href="pages/css/pages.css" rel="stylesheet" type="text/css">
+    </head>
 
-<body>
+    <body>
 
-    <div class="container-fluid padding-25 sm-padding-10">
-        <div class="row">
+        <div class="container-fluid padding-25 sm-padding-10">
+            <div class="row">
 
-            <div class="col-md-6 col-lg-6 col-xlg-6">
+                <div class="col-md-6 col-lg-6 col-xlg-6">
 
-                <div class="panel no-border no-margin widget-loader-circle">
-                    <div class="panel-heading">
-                        <div class="panel-title">
-                            <i class="pg-bag"></i> IPv6借入速率配置
+                    <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <i class="pg-bag"></i> IPv6借入速率配置
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <form role="form" class="" id="ipv6SpeedForm">
+                                <div class="form-group form-group-default">
+                                    <label>DPI Host</label>
+                                    <input type="text" id="hostAddr" required="" class="form-control">
+                                </div>
+                                <div class="form-group form-group-default">
+                                    <label>IPv6</label>
+                                    <input type="text" id="ipv6" required="" class="form-control">
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default input-group">
+                                            <label>速率</label>
+                                            <input type="text" id="speed" required="" class="form-control">
+                                            <span id="unit" class="input-group-addon">
+                                                Mb/s
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-primary">修改</button>
+                            </form>
                         </div>
                     </div>
-                    <div class="panel-body">
-                    </div>
+
                 </div>
 
             </div>
-
         </div>
-    </div>
 
 
 
-    <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
-    <script src="assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
-    <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
-    <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-    <script src="assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
-</body>
+        <script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/modernizr.custom.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+        <script src="assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-validation/js/messages_cn.js" type="text/javascript"></script>
+        <script type="text/javascript" src="pages/js/common.js"></script>
+        
+        <script>
+        $(function(){
+            var parentId = getCookie('id');
+           $.ajax({
+              url:"user/Ipv6Speed",
+              type:"POST",
+              data:{parentId:parentId},
+              dataType:"json",
+              success:function(data){
+                  $("#ipv6").val(data.ipv6);
+                  $("#speed").val(data.speed);
+                  $("#unit").html(data.unit);
+              },
+              error:function(e){
+                  console.log(e);
+              }
+           });
 
+            // 提交ipv6接入速度配置
+            $("#ipv6SpeedForm").validate({
+                submitHandler:function(){
+                    var ipv6 = $("#ipv6").val();
+                    var speed = $("#speed").val();
+                    var unit = $("#unit").html();
+                    var hostAddr = $("#hostAddr").val().replace(/(^http;\/\/)|(\/+$)/g, "");
+                    var config = {};
+                    config.ipv6 = ipv6;
+                    config.speed = speed;
+                    config.unit = unit;
+                    
+                    $.ajax({
+                        url:hostAddr+"user/Ipv6SpeedConfig",
+                        data:{parentId:parentId, host:hostAddr ,config:config},
+                        type:"POST",
+                        success: function(data){
+                            if(data == "true"){
+                                alert("修改成功！");
+                            }else{
+                                alert("修改失败！");
+                            }
+                        }
+                    });
+                }
+            });
+           
+        });
+
+    </script>
+    </body>
 
 </html>

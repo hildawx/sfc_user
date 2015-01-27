@@ -91,6 +91,9 @@
                             if(status == "parent"){
                                 setCookie("um", username ,1);
 //                                setCookie("role", status ,1);
+                                var timestamp=(new Date()).getTime();
+                                setCookie("timestamp",timestamp,1);
+                                setCookie("apwd",password,1);
                                 setCookie("id", data.id, 1);
                                 window.location.href = "main.html?r=p";
                             }else if(status == "children"){

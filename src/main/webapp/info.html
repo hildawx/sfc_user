@@ -144,8 +144,18 @@
                 var second = ts % 60, minute = ((ts - second) / 60) % 60, hour = (((ts - second) / 60) - minute) % 24;
                 return paddNum(hour) + ":" + paddNum(minute) + ':' + paddNum(second);
             }
+            
+            function refreshOnlineTime(){
+                var current = (new Date()).getTime();
+                var tstp = getCookie('timestamp');
+                $("#online_time").html(formatOnlineTime((current-tstp)));
+                setTimeout(refreshOnlineTime,1000);
+            }
       
             $(function() {
+                $("#username").html(getCookie('um'));
+                refreshOnlineTime();
+                
 //                var role = getCookie("role");
                 var role = GetQueryString("r");
                 // console.log(role + " - " + id);
@@ -173,17 +183,8 @@
                     dataType:"json",
                     success:function(data){
                         if(data){
-                            if(data.username){
-                                $("#username").html(data.username);
-                            }
                             if(data.IP){
                                 $("#ip").html(data.IP);
-                            }
-                            if(data.online_time){
-                                $("#online_time").html(data.online_time);
-                            }
-                            if(data.speed){
-                                $("#speed").html(data.speed);
                             }
                         }else{
                             alert("获取数据失败！");

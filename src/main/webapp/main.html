@@ -59,17 +59,17 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="parentContrl.html" target="mainPage">
                                     <span class="title"><i class="pg-home"></i> 家长控制</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="adBlock.html" target="mainPage">
                                     <span class="title"><i class="pg-minus_circle"></i> 广告屏蔽</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="#">
+                                <a href="remoteDownload.html?r=p" target="mainPage">
                                     <span class="title"><i class="pg-spam"></i> 远程下载</span>
                                 </a>
                             </li>
@@ -128,6 +128,8 @@
         if(role == "p"){
             delCookie("um");
             delCookie("id");
+            delCookie("apwd");
+            delCookie("timestamp");
         }
         window.location.href = "login.html";
       }
