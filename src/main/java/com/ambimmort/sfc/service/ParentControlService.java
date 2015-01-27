@@ -18,7 +18,7 @@ import net.sf.json.JSONObject;
  */
 public class ParentControlService {
 
-    public boolean addConfig(String pId, String type, String address, String urlList, String appList, String online_time) {
+    public boolean addConfig(String fwHost, String pId, String type, String address, String urlList, String appList, String online_time) {
         JSONObject data = new JSONObject();
         data.put("type", type);
         data.put("address", address);
@@ -27,7 +27,7 @@ public class ParentControlService {
         data.put("online_time", online_time);
         
         try {
-            RestClient.getInstance().post("http;//" + Config.getString("classifier.host") + "/gn/fw/parent/control/json", data.toString());
+            RestClient.getInstance().post("http;//" + fwHost + "/gn/fw/parent/control/json", data.toString());
             return true;
         } catch (IOException ex) {
             Logger.getLogger(ParentControlService.class.getName()).log(Level.SEVERE, null, ex);

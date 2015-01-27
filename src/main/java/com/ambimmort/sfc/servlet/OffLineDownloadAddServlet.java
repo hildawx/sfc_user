@@ -4,7 +4,7 @@
  */
 package com.ambimmort.sfc.servlet;
 
-import com.ambimmort.sfc.service.ParentControlService;
+import com.ambimmort.sfc.service.OFFLineDownloadService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,13 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "ParentControlSetServlet", urlPatterns = {"/user/ParentCtrl"})
-public class ParentControlSetServlet extends HttpServlet {
+@WebServlet(name = "OffLineDownloadAddServlet", urlPatterns = {"/user/remoteDownload"})
+public class OffLineDownloadAddServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -35,16 +37,20 @@ public class ParentControlSetServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String fwHost = request.getParameter("fwHost");
-        String pId = request.getParameter("parentId");
-        String type = request.getParameter("type");
-        String address = request.getParameter("address");
-        String urlList = request.getParameter("url_list");
-        String appList = request.getParameter("app_list");
-        String online_time = request.getParameter("online_time");
+        String storeHost = request.getParameter("host");
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String role = request.getParameter("role");
+        String downloadURLs = request.getParameter("download");
+        
+        JSONObject ob = new JSONObject();
+        ob.put("username", username);
+        ob.put("passwd", password);
+        ob.put("role", role);
+        ob.put("download", JSONArray.fromObject(downloadURLs));
         try {
-            boolean rs = new ParentControlService().addConfig(fwHost, pId, type, address, urlList, appList, online_time);
-            out.print(rs);
+            boolean flag = new OFFLineDownloadService().addDownload(storeHost, ob.toString());
+            out.print(flag);
         } finally {            
             out.close();
         }

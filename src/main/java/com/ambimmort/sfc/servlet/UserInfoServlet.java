@@ -38,11 +38,12 @@ public class UserInfoServlet extends HttpServlet {
         
         String role = request.getParameter("role");
         String id = request.getParameter("id");
+        String userIP = request.getRemoteAddr();
+        
         try {
-            JSONObject obj = new AccountService().getAccountInfo(id, role);
-            if (obj != null) {
-                out.print(obj);
-            }
+            JSONObject obj = new JSONObject();
+            obj.put("IP", userIP);
+            out.print(obj);
         } finally {            
             out.close();
         }

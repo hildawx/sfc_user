@@ -46,17 +46,6 @@ public class AccountService {
         return returnArr;
     }
 
-    public JSONObject getAccountInfo(String id, String role) throws IOException {
-        String resp = RestClient.getInstance().get("http://" + Config.getString("classifier.host") + "/gn/classifier/user/info/json");
-        JSONObject obj = JSONObject.fromObject(resp);
-        JSONArray tmpArr = obj.getJSONArray("user");
-        if (tmpArr.size() > 0) {
-            return tmpArr.getJSONObject(0);
-        } else {
-            return null;
-        }
-    }
-
     public boolean addChildrenAccount(String parentId, String childName, String childPassword) throws IOException {
         JSONObject sendObj = new JSONObject();
         sendObj.put("pid", parentId);
