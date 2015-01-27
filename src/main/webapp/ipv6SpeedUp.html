@@ -37,6 +37,10 @@
                         <div class="panel-body">
                             <form role="form" class="" id="ipv6SpeedForm">
                                 <div class="form-group form-group-default">
+                                    <label>DPI Host</label>
+                                    <input type="text" id="hostAddr" required="" class="form-control">
+                                </div>
+                                <div class="form-group form-group-default">
                                     <label>IPv6</label>
                                     <input type="text" id="ipv6" required="" class="form-control">
                                 </div>
@@ -50,10 +54,6 @@
                                             </span>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-group form-group-default">
-                                    <label>HOST地址</label>
-                                    <input type="text" id="hostAddr" required="" class="form-control">
                                 </div>
                                 <button type="submit" class="btn btn-primary">修改</button>
                             </form>
@@ -80,20 +80,20 @@
         <script>
         $(function(){
             var parentId = getCookie('id');
-//           $.ajax({
-//              url:"user/Ipv6Speed",
-//              type:"POST",
-//              data:{parentId:parentId},
-//              dataType:"json",
-//              success:function(data){
-//                  $("#ipv6").val(data.ipv6);
-//                  $("#speed").val(data.speed);
-//                  $("#unit").html(data.unit);
-//              },
-//              error:function(e){
-//                  alert(e);
-//              }
-//           });
+           $.ajax({
+              url:"user/Ipv6Speed",
+              type:"POST",
+              data:{parentId:parentId},
+              dataType:"json",
+              success:function(data){
+                  $("#ipv6").val(data.ipv6);
+                  $("#speed").val(data.speed);
+                  $("#unit").html(data.unit);
+              },
+              error:function(e){
+                  alert(e);
+              }
+           });
 
             // 提交ipv6接入速度配置
             $("#ipv6SpeedForm").validate({

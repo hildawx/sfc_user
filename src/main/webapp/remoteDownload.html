@@ -36,19 +36,11 @@
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form role="form" class="" id="adBlockForm">
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group form-group-default">
-                                            <label>IP地址</label>
-                                            <input id="ip" type="text" required="" class="form-control">
-                                        </div>
-                                    </div>
+                            <form role="form" class="" id="remtDwnldForm">
+                                <div class="form-group form-group-default ">
+                                    <label>存储Host</label>
+                                    <input id="hostAddr" class="form-control" type="text" required="">
                                 </div>
-<!--                                <div class="form-group form-group-default ">
-                                    <label>广告地址</label>
-                                    <input id="urls" class="tagsinput custom-tag-input" type="text" value="http://img30.360buyimg.com, www.baidu.com">
-                                </div>-->
                                 <div class="form-group form-group-default ">
                                     <label>URL地址</label>
                                     <span class="help-block">多个URL地址以换行分隔。</span>
@@ -62,7 +54,7 @@
 
                 </div>
 
-                <div class="col-md-6 col-lg-6 col-xlg-6">
+<!--                <div class="col-md-6 col-lg-6 col-xlg-6">
                     <div class="panel panel-transparent no-border no-margin widget-loader-circle">
                         <div class="panel-heading">
                             <div class="panel-title">
@@ -86,7 +78,8 @@
                     
                     </div>
 
-                </div>
+                </div>-->
+                
             </div>
         </div>
 
@@ -97,6 +90,7 @@
         <script src="assets/plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="assets/plugins/bootstrap3-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
         <script src="assets/plugins/jquery-validation/js/jquery.validate.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/jquery-validation/js/messages_cn.js" type="text/javascript"></script>
         <script type="text/javascript" src="assets/plugins/bootstrap-tag/bootstrap-tagsinput.min.js"></script>
         <script type="text/javascript" src="pages/js/common.js"></script>
 
@@ -104,17 +98,26 @@
             
             $(function() {
                 var parentId = getCookie('id');
-                $('.custom-tag-input').tagsinput({});
                 
                 // 表单验证
-                $("#adBlockForm").validate({
+                $("#remtDwnldForm").validate({
                     submitHandler:function(){
-                        var type = $("#type option:selected").val();
-                        var ip = $("#ip").val();
+                        var username = getCookie('um');
+                        var password = getCookie('apwd');
+                        var role = GetQueryString("r");
+                        if(role == "p"){
+                            role = "parent";
+                        }
                         var urls = $("#urls").val().split("\n");
+                        var urlArr = [];
+                        $.each(urls,function(i,e){
+                            var tmp = {};
+                            tmp.url = e;
+                            urlArr.push(tmp);
+                        });
                         $.ajax({
-                            url:"user/ParentCtrl",
-                            data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urls)},
+                            url:"user/remoteDownload",
+                            data:{username:username,password:password,role:role,urls:JSON.stringify(urlArr)},
                             type:"POST",
                             dataType:"json",
                             success:function(data){

@@ -69,7 +69,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="remoteDownload.html" target="mainPage">
+                                <a href="remoteDownload.html?r=p" target="mainPage">
                                     <span class="title"><i class="pg-spam"></i> 远程下载</span>
                                 </a>
                             </li>
@@ -128,6 +128,8 @@
         if(role == "p"){
             delCookie("um");
             delCookie("id");
+            delCookie("apwd");
+            delCookie("timestamp");
         }
         window.location.href = "login.html";
       }
