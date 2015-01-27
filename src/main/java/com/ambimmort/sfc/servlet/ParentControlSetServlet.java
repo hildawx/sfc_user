@@ -35,7 +35,7 @@ public class ParentControlSetServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String fwHost = request.getParameter("fwHost");
+        String fwHost = request.getParameter("host");
         String pId = request.getParameter("parentId");
         String type = request.getParameter("type");
         String address = request.getParameter("address");

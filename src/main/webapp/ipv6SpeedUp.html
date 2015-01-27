@@ -100,19 +100,20 @@
                 submitHandler:function(){
                     var ipv6 = $("#ipv6").val();
                     var speed = $("#speed").val();
-                    var unit = $("#unit").html();
-                    var hostAddr = $("#hostAddr").val().replace(/(^http;\/\/)|(\/+$)/g, "");
+                    var unit = "Mb/s"
+                    var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                     var config = {};
                     config.ipv6 = ipv6;
                     config.speed = speed;
                     config.unit = unit;
                     
                     $.ajax({
-                        url:hostAddr+"user/Ipv6SpeedConfig",
-                        data:{parentId:parentId, host:hostAddr ,config:config},
+                        url:"user/Ipv6SpeedConfig",
+                        data:{parentId:parentId, host:hostAddr ,config:JSON.stringify(config)},
                         type:"POST",
+                        dataType: "json",
                         success: function(data){
-                            if(data == "true"){
+                            if(data){
                                 alert("修改成功！");
                             }else{
                                 alert("修改失败！");

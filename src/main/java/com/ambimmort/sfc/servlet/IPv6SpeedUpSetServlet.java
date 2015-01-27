@@ -35,7 +35,7 @@ public class IPv6SpeedUpSetServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String dpiHost = request.getParameter("dpiHost");
+        String dpiHost = request.getParameter("host");
         String pId = request.getParameter("parentId");
         String config = request.getParameter("config");
         try {

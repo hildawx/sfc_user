@@ -41,7 +41,7 @@ public class OffLineDownloadAddServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
-        String downloadURLs = request.getParameter("download");
+        String downloadURLs = request.getParameter("urls");
         
         JSONObject ob = new JSONObject();
         ob.put("username", username);

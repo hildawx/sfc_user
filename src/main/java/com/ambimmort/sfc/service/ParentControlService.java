@@ -27,7 +27,8 @@ public class ParentControlService {
         data.put("online_time", online_time);
         
         try {
-            RestClient.getInstance().post("http;//" + fwHost + "/gn/fw/parent/control/json", data.toString());
+            System.out.println("host: " + fwHost);
+            RestClient.getInstance().post("http://" + fwHost + "/gn/fw/parent/control/json", data.toString());
             return true;
         } catch (IOException ex) {
             Logger.getLogger(ParentControlService.class.getName()).log(Level.SEVERE, null, ex);

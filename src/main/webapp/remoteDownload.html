@@ -115,14 +115,14 @@
                             tmp.url = e;
                             urlArr.push(tmp);
                         });
-                        var hostAddr = $("#hostAddr").val();
+                        var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                         $.ajax({
                             url:"user/remoteDownload",
                             data:{username:username,password:password,role:role,urls:JSON.stringify(urlArr),host:hostAddr},
                             type:"POST",
                             dataType:"json",
                             success:function(data){
-                                if(data=="true"){
+                                if(data){
                                     alert("添加成功！");
                                 }else{
                                     alert("添加失败！");
