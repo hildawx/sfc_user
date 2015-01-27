@@ -79,7 +79,7 @@
                                 <div class="col-xs-height col-top">
                                     <div class="panel-heading top-left top-right">
                                         <div class="panel-title text-black hint-text">
-                                            <span class="font-montserrat fs-16 all-caps">上网时间 <i class="fa fa-clock-o"></i></span>
+                                            <span class="font-montserrat fs-16 all-caps">上网时长 <i class="fa fa-clock-o"></i></span>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 
-                <div class="col-sm-3 m-b-10">
+                <!--<div class="col-sm-3 m-b-10">
                     <div class="widget-8 panel no-border no-margin">
                         <div class="container-xs-height full-height">
                             <div class="row-xs-height">
@@ -114,7 +114,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </div>
 
@@ -132,6 +132,17 @@
                 delCookie("cum");
                 delCookie("pwd");
                 window.location.href = "login.html";
+            }
+            
+            function paddNum(num) {
+                num += "";
+                return num.replace(/^(\d)$/, "0$1");
+            }
+            // 上网时长格式化函数（单位ms）
+            function formatOnlineTime(ts) {
+                var ts = Math.round(ts / 1000);
+                var second = ts % 60, minute = ((ts - second) / 60) % 60, hour = (((ts - second) / 60) - minute) % 24;
+                return paddNum(hour) + ":" + paddNum(minute) + ':' + paddNum(second);
             }
       
             $(function() {

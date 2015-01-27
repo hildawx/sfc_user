@@ -23,11 +23,15 @@ public class AccountService {
         sendObj.put("username", username);
         sendObj.put("passwd", password);
         String resp = RestClient.getInstance().post("http://" + Config.getString("classifier.host") + "/gn/classifier/portal/auth/json", sendObj.toString());
-        return JSONObject.fromObject(resp);
+        JSONObject receiveObj = JSONObject.fromObject(resp);
+        JSONObject returnObj = new JSONObject();
+        returnObj.put("status", receiveObj.getString("status"));
+        returnObj.put("id", receiveObj.getInt("roleid"));
+        return returnObj;
     }
 
     public JSONArray getChildAccount(String parentID) throws IOException {
-        String resp = RestClient.getInstance().get("http://" + Config.getString("classifier.host") + "/gn/classifier/account/config/json&parentId="+ parentID);
+        String resp = RestClient.getInstance().get("http://" + Config.getString("classifier.host") + "/gn/classifier/user/info/json&pid="+ parentID);
         JSONObject obj = JSONObject.fromObject(resp);
         JSONArray arr = obj.getJSONArray("account");
         Iterator<JSONObject> it = arr.iterator();
@@ -35,10 +39,9 @@ public class AccountService {
         while(it.hasNext()) {
             JSONObject o = it.next();
             JSONArray item = new JSONArray();
-            item.add(o.getString("id"));
             item.add(o.getString("username"));
             item.add(o.getString("passwd"));
-            returnArr.add(o);
+            returnArr.add(item);
         }
         return returnArr;
     }
@@ -56,10 +59,24 @@ public class AccountService {
 
     public boolean addChildrenAccount(String parentId, String childName, String childPassword) throws IOException {
         JSONObject sendObj = new JSONObject();
-        sendObj.put("parentId", parentId);
+        sendObj.put("pid", parentId);
         sendObj.put("username", childName);
         sendObj.put("passwd", childPassword);
-        String resp = RestClient.getInstance().get("http://"+ Config.getString("classifier.host") + "/gn/classifier/account/config/json");
+        String resp = RestClient.getInstance().post("http://"+ Config.getString("classifier.host") + "/gn/classifier/account/config/child/json", sendObj.toString());
+        JSONObject rsJSON = JSONObject.fromObject(resp);
+        if ("success".equals(rsJSON.getString("status"))) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean deleteChildrenAccount(String parentId, String childName, String childPasswd) throws IOException {
+        JSONObject sendObj = new JSONObject();
+        sendObj.put("pid", parentId);
+        sendObj.put("username", childName);
+        sendObj.put("passwd", childPasswd);
+        String resp = RestClient.getInstance().delete("http://" + Config.getString("classifier.host") + "/gn/classifier/account/config/child/json", sendObj.toString());
         JSONObject rsJSON = JSONObject.fromObject(resp);
         if ("success".equals(rsJSON.getString("status"))) {
             return true;

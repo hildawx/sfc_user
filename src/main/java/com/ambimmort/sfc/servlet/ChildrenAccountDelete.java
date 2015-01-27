@@ -7,21 +7,18 @@ package com.ambimmort.sfc.servlet;
 import com.ambimmort.sfc.service.AccountService;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.json.JSONObject;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "PortalCertificateServlet", urlPatterns = {"/user/PortalCertificate"})
-public class PortalCertificateServlet extends HttpServlet {
+@WebServlet(name = "ChildrenAccountDelete", urlPatterns = {"/user/ChildrenAccountDelete"})
+public class ChildrenAccountDelete extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -38,12 +35,12 @@ public class PortalCertificateServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String userIP = request.getRemoteAddr();
+        String parentId = request.getParameter("parentId");
+        String childName = request.getParameter("childName");
+        String childPasswd = request.getParameter("childPassword");
         try {
-            JSONObject obj = new AccountService().login(username, password, userIP);
-            out.print(obj);
+            boolean flag = new AccountService().deleteChildrenAccount(parentId, childName, childPasswd);
+            out.print(flag);
         } finally {            
             out.close();
         }

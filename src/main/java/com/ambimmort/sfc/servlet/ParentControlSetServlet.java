@@ -4,24 +4,21 @@
  */
 package com.ambimmort.sfc.servlet;
 
-import com.ambimmort.sfc.service.AccountService;
+import com.ambimmort.sfc.service.ParentControlService;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.json.JSONObject;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "PortalCertificateServlet", urlPatterns = {"/user/PortalCertificate"})
-public class PortalCertificateServlet extends HttpServlet {
+@WebServlet(name = "ParentControlSetServlet", urlPatterns = {"/user/ParentCtrl"})
+public class ParentControlSetServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -38,12 +35,15 @@ public class PortalCertificateServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String userIP = request.getRemoteAddr();
+        String pId = request.getParameter("parentId");
+        String type = request.getParameter("type");
+        String address = request.getParameter("address");
+        String urlList = request.getParameter("url_list");
+        String appList = request.getParameter("app_list");
+        String online_time = request.getParameter("online_time");
         try {
-            JSONObject obj = new AccountService().login(username, password, userIP);
-            out.print(obj);
+            boolean rs = new ParentControlService().addConfig(pId, type, address, urlList, appList, online_time);
+            out.print(rs);
         } finally {            
             out.close();
         }
