@@ -63,6 +63,10 @@
                                     <span class="help-block">多个URL地址以换行分隔。</span>
                                     <textarea id="urls" required="" class="form-control" style="height: 200px;"></textarea>
                                 </div>
+                                <div class="form-group form-group-default">
+                                    <label>HOST地址</label>
+                                    <input id="hostAddr" type="text" required="" class="form-control">
+                                </div>
 
                                 <button type="submit" class="btn btn-primary">确定</button>
                             </form>
@@ -182,7 +186,7 @@
                    dataType:"json",
                    success:function(data){
                        if(data){
-                           configList(JSON.parse(data));
+                           configList(data);
                        }else{
                            alert("获取数据失败！");
                        }
@@ -195,8 +199,9 @@
                         var type = $("#type option:selected").val();
                         var ip = $("#ip").val();
                         var urls = $("#urls").val().trim().split("\n");
+                        var hostAddr = $("#hostAddr").val();
                         $.ajax({
-                            url:"user/adBlock",
+                            url:hostAddr+"user/adBlock",
                             data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urls)},
                             type:"POST",
                             dataType:"json",

@@ -51,6 +51,10 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-group form-group-default">
+                                    <label>HOST地址</label>
+                                    <input type="text" id="hostAddr" required="" class="form-control">
+                                </div>
                                 <button type="submit" class="btn btn-primary">修改</button>
                             </form>
                         </div>
@@ -97,13 +101,14 @@
                     var ipv6 = $("#ipv6").val();
                     var speed = $("#speed").val();
                     var unit = $("#unit").html();
+                    var hostAddr = $("#hostAddr").val();
                     var config = {};
                     config.ipv6 = ipv6;
                     config.speed = speed;
                     config.unit = unit;
                     
 //                    $.ajax({
-//                        url:"user/Ipv6SpeedConfig",
+//                        url:hostAddr+"user/Ipv6SpeedConfig",
 //                        data:{parentId;parentId,config:config},
 //                        type:"POST",
 //                        success:function(data){
