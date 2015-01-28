@@ -111,6 +111,7 @@
                         var urls = $("#urls").val().split("\n");
                         var urlArr = [];
                         $.each(urls,function(i,e){
+                            if ($.trim(e) == "") return;
                             var tmp = {};
                             tmp.url = e;
                             urlArr.push(tmp);

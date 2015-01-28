@@ -141,7 +141,7 @@
             // 上网时长格式化函数（单位ms）
             function formatOnlineTime(ts) {
                 var ts = Math.round(ts / 1000);
-                var second = ts % 60, minute = ((ts - second) / 60) % 60, hour = (((ts - second) / 60) - minute) % 24;
+                var second = ts % 60, minute = ((ts - second) / 60) % 60, hour = ((((ts - second) / 60) - minute) / 60) % 24;
                 return paddNum(hour) + ":" + paddNum(minute) + ':' + paddNum(second);
             }
             

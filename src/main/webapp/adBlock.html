@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <div class="panel-body" id="configList">
-                            <div role="alert" class="alert alert-warning bordered">
+                            <!--<div role="alert" class="alert alert-warning bordered">
                                 <p class="pull-left">192.168.1.114</p>
                                 <button class="close"></button>
                                 <p class="pull-right bold no-margin"><a href="#">查看配置</a></p>
@@ -94,7 +94,7 @@
                                 <button class="close"></button>
                                 <p class="pull-right bold no-margin"><a href="#">查看配置</a></p>
                                 <div class="clearfix"></div>
-                            </div>
+                            </div>-->
                         </div>
                     
                     </div>
@@ -199,10 +199,15 @@
                         var type = $("#type option:selected").val();
                         var ip = $("#ip").val();
                         var urls = $("#urls").val().trim().split("\n");
+                        var urlArr = [];
+                        $.each(urls, function(i,e){
+                            if ($.trim(e) == "") return;
+                            urlArr.push({url:e});
+                        });
                         var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                         $.ajax({
                             url:"user/adBlock",
-                            data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urls),host:hostAddr},
+                            data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urlArr),host:hostAddr},
                             type:"POST",
                             dataType:"json",
                             success:function(data){

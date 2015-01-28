@@ -240,12 +240,22 @@
                         var type = $("#type option:selected").val();
                         var ip = $("#ip").val();
                         var urls = $("#urls").val().split(",");
+                        var urlArr = [];
+                        $.each(urls, function(i, e){
+                            if ($.trim(e) == "") return;
+                            urlArr.push({url:e});
+                        });
                         var apps = $("#apps").select2("val");
+                        var appArr = [];
+                        $.each(apps, function(i,e){
+                            if ($.trim(e) == "") return;
+                            appArr.push({app:e});
+                        });
                         var onlineTime = $("#onlineTime").val();
                         var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                         $.ajax({
                             url: "user/ParentCtrl",
-                            data: {parentId: parentId, type: type, address: ip, url_list: JSON.stringify(urls), app_list: JSON.stringify(apps), online_time: onlineTime,host:hostAddr},
+                            data: {parentId: parentId, type: type, address: ip, url_list: JSON.stringify(urlArr), app_list: JSON.stringify(appArr), online_time: onlineTime,host:hostAddr},
                             type: "POST",
                             dataType: "json",
                             success: function(data) {
