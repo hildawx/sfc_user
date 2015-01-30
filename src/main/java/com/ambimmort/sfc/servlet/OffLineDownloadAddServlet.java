@@ -37,7 +37,6 @@ public class OffLineDownloadAddServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String storeHost = request.getParameter("host");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String role = request.getParameter("role");
@@ -49,7 +48,7 @@ public class OffLineDownloadAddServlet extends HttpServlet {
         ob.put("role", role);
         ob.put("download", JSONArray.fromObject(downloadURLs));
         try {
-            boolean flag = new OFFLineDownloadService().addDownload(storeHost, ob.toString());
+            boolean flag = new OFFLineDownloadService().addDownload(ob.toString());
             out.print(flag);
         } finally {            
             out.close();

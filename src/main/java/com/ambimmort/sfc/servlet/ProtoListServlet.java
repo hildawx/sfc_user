@@ -4,7 +4,7 @@
  */
 package com.ambimmort.sfc.servlet;
 
-import com.ambimmort.sfc.service.ADBlockService;
+import com.ambimmort.sfc.service.IPv6SpeedService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,14 +13,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  *
  * @author Administrator
  */
-@WebServlet(name = "ADBlockAddServlet", urlPatterns = {"/user/adBlock"})
-public class ADBlockAddServlet extends HttpServlet {
+@WebServlet(name = "ProtoListServlet", urlPatterns = {"/user/appsList"})
+public class ProtoListServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -36,17 +35,9 @@ public class ADBlockAddServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
-        String type = request.getParameter("type");
-        String address = request.getParameter("address");
-        String urls = request.getParameter("urls");
-        
-        JSONObject obj = new JSONObject();
-        obj.put("type", type);
-        obj.put(address, JSONArray.fromObject(urls));
         try {
-            boolean flag = new ADBlockService().addBlockRule(obj.toString());
-            out.print(flag);
+            JSONArray arr = new IPv6SpeedService().getProtoList();
+            out.print(arr);
         } finally {            
             out.close();
         }

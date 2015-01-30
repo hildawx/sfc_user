@@ -41,6 +41,7 @@ public class AccountService {
             JSONArray item = new JSONArray();
             item.add(o.getString("username"));
             item.add(o.getString("passwd"));
+            item.add("0.0.0.0".equals(o.getString("ip")) ? "未登陆" : o.getString("ip"));
             returnArr.add(item);
         }
         return returnArr;

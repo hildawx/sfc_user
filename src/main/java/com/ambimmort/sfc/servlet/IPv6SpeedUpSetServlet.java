@@ -35,11 +35,10 @@ public class IPv6SpeedUpSetServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String dpiHost = request.getParameter("host");
         String pId = request.getParameter("parentId");
         String config = request.getParameter("config");
         try {
-            boolean rs = new IPv6SpeedService().setConfig(dpiHost, pId, config);
+            boolean rs = new IPv6SpeedService().setConfig(pId, config);
             out.print(rs);
         } finally {            
             out.close();

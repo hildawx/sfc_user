@@ -4,6 +4,7 @@
  */
 package com.ambimmort.sfc.service;
 
+import com.ambimmort.sfc.util.Config;
 import com.ambimmort.sfc.util.RestClient;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -15,9 +16,9 @@ import java.util.logging.Logger;
  */
 public class ADBlockService {
 
-    public boolean addBlockRule(String dpiHost, String config) {
+    public boolean addBlockRule(String config) {
         StringBuilder sb = new StringBuilder();
-        sb.append("http://").append(dpiHost).append("/gn/dpi/ads/block/json");
+        sb.append("http://").append(Config.getString("dpi.host")).append("/gn/dpi/ads/block/json");
         try {
             RestClient.getInstance().post(sb.toString(), config);
             return true;
