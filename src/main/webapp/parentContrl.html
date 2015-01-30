@@ -38,10 +38,10 @@
                         </div>
                         <div class="panel-body">
                             <form role="form" class="" id="parentContrlForm">
-                                <div class="form-group form-group-default">
+<!--                                <div class="form-group form-group-default">
                                     <label>防火墙 Host</label>
                                     <input id="hostAddr" type="text" required="" class="form-control">
-                                </div>
+                                </div>-->
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-default">
@@ -55,7 +55,9 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-default">
                                             <label>IP地址</label>
-                                            <input id="ip" type="text" required="" class="form-control">
+                                            <!--<input id="ip" type="text" required="" class="form-control">-->
+                                            <select id="ip" class="form-control">
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -77,6 +79,16 @@
                                         <div class="form-group form-group-default">
                                             <label>上网时长</label>
                                             <input id="onlineTime" type="text" required="" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default">
+                                            <label>单位</label>
+                                            <select id="unit" class="form-control">
+                                                <option value="h">小时</option>
+                                                <option value="m">分钟</option>
+                                                <option value="s">秒</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -206,39 +218,57 @@
 
                 // 获取应用列表
                 $.ajax({
-                   url:"ajax/apps",
+                  // url:"ajax/apps",
+                   url:"user/appsList",
                    dataType:"json",
                    type:"GET",
                    success:function(data){
                        var appStr = "";
                        $.each(data,function(i,e){
-                           appStr +='<option value="'+e[0]+'">'+e[1]+'</option>';
+                           appStr +='<option value="'+e.value+'">'+e.name+'</option>';
                        });
                        $("#apps").append(appStr);
                        $('#apps').select2();
                    }
                 });
+                
+                // 获取儿童ip地址
+                $.ajax({
+                   url:"user/ChildrenAccountList?parentId="+parentId ,
+                   dataType:"json",
+                   type:"GET",
+                   success:function(data){
+                       var ipSrc = data.aaData;
+                       var str = "";
+                       $.each(ipSrc,function(i,e){
+                           if(e[2] != "未登陆"){
+                               str += "<option value='"+e[2]+"'>"+e[2]+"</option>";
+                           }
+                       });
+                       $("#ip").append(str);
+                   }
+                });
 
                 // 获取家长控制列表
-                $.ajax({
-                    url: "user/ParentCtrlList",
-                    type: "POST",
-                    data: {parentId: parentId},
-                    dataType: "json",
-                    success: function(data) {
-                        if (data) {
-                            configList(data);
-                        } else {
-                            alert("获取数据失败！");
-                        }
-                    }
-                });
+//                $.ajax({
+//                    url: "user/ParentCtrlList",
+//                    type: "POST",
+//                    data: {parentId: parentId},
+//                    dataType: "json",
+//                    success: function(data) {
+//                        if (data) {
+//                            configList(data);
+//                        } else {
+//                            alert("获取数据失败！");
+//                        }
+//                    }
+//                });
 
                 // 表单验证
                 $("#parentContrlForm").validate({
                     submitHandler: function() {
                         var type = $("#type option:selected").val();
-                        var ip = $("#ip").val();
+                        var ip = $("#ip option:selected").val();
                         var urls = $("#urls").val().split(",");
                         var urlArr = [];
                         $.each(urls, function(i, e){
@@ -251,11 +281,11 @@
                             if ($.trim(e) == "") return;
                             appArr.push({app:e});
                         });
-                        var onlineTime = $("#onlineTime").val();
-                        var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
+                        var onlineTime = $("#onlineTime").val() + $("#unit option:selected").val();
+//                        var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                         $.ajax({
                             url: "user/ParentCtrl",
-                            data: {parentId: parentId, type: type, address: ip, url_list: JSON.stringify(urlArr), app_list: JSON.stringify(appArr), online_time: onlineTime,host:hostAddr},
+                            data: {parentId: parentId, type: type, address: ip, url_list: JSON.stringify(urlArr), app_list: JSON.stringify(appArr), online_time: onlineTime},
                             type: "POST",
                             dataType: "json",
                             success: function(data) {

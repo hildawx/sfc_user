@@ -147,18 +147,23 @@
             
             function refreshOnlineTime(){
                 var current = (new Date()).getTime();
-                var tstp = getCookie('timestamp');
+                if(role == "p"){
+                    var tstp = getCookie('timestamp');
+                }else{
+                    tstp = getCookie("ctimestamp");
+                }
                 $("#online_time").html(formatOnlineTime((current-tstp)));
                 setTimeout(refreshOnlineTime,1000);
             }
-      
+            
+            var role;
             $(function() {
                 $("#username").html(getCookie('um'));
+                
+                role = GetQueryString("r");
+                
                 refreshOnlineTime();
                 
-//                var role = getCookie("role");
-                var role = GetQueryString("r");
-                // console.log(role + " - " + id);
                 var data = {};
                 if(role == "p"){
                     data = {
@@ -167,8 +172,8 @@
                     };
                 }
                 if(role == "c"){
-                    var str = ' <div class="row"><button class="btn btn-cons pull-right btn-primary" onclick=logOut()> <i class="fa fa-sign-out"></i> 登出</button></div><br>';
-                    $(".container-fluid").prepend(str);
+//                    var str = ' <div class="row"><button class="btn btn-cons pull-right btn-primary" onclick=logOut()> <i class="fa fa-sign-out"></i> 登出</button></div><br>';
+//                    $(".container-fluid").prepend(str);
                     data = {
                         role:"children",
 //                        id:id,

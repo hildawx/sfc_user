@@ -36,26 +36,32 @@
                         </div>
                         <div class="panel-body">
                             <form role="form" class="" id="ipv6SpeedForm">
-                                <div class="form-group form-group-default">
+<!--                                <div class="form-group form-group-default">
                                     <label>DPI Host</label>
                                     <input type="text" id="hostAddr" required="" class="form-control">
-                                </div>
+                                </div>-->
                                 <div class="form-group form-group-default">
                                     <label>IPv6</label>
                                     <input type="text" id="ipv6" required="" class="form-control">
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="form-group form-group-default input-group">
+                                        <div class="form-group form-group-default">
                                             <label>速率</label>
                                             <input type="text" id="speed" required="" class="form-control">
-                                            <span id="unit" class="input-group-addon">
-                                                Mb/s
-                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default">
+                                            <label>单位</label>
+                                            <select id="unit" class="form-control">
+                                                <option value="Mb/s">Mb/s</option>
+                                                <option value="kb/s">kb/s</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">修改</button>
+                                <button type="submit" class="btn btn-primary">确定</button>
                             </form>
                         </div>
                     </div>
@@ -88,7 +94,7 @@
               success:function(data){
                   $("#ipv6").val(data.ipv6);
                   $("#speed").val(data.speed);
-                  $("#unit").html(data.unit);
+                  $("#unit").val(data.unit);
               },
               error:function(e){
                   console.log(e);
@@ -100,8 +106,8 @@
                 submitHandler:function(){
                     var ipv6 = $("#ipv6").val();
                     var speed = $("#speed").val();
-                    var unit = "Mb/s"
-                    var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
+                    var unit = $("#unit option:selected").val();
+//                    var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                     var config = {};
                     config.ipv6 = ipv6;
                     config.speed = speed;
@@ -109,14 +115,14 @@
                     
                     $.ajax({
                         url:"user/Ipv6SpeedConfig",
-                        data:{parentId:parentId, host:hostAddr ,config:JSON.stringify(config)},
+                        data:{parentId:parentId,config:JSON.stringify(config)},
                         type:"POST",
                         dataType: "json",
                         success: function(data){
                             if(data){
-                                alert("修改成功！");
+                                alert("配置成功！");
                             }else{
-                                alert("修改失败！");
+                                alert("配置失败！");
                             }
                         }
                     });

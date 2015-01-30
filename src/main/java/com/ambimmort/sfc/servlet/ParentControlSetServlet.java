@@ -35,7 +35,6 @@ public class ParentControlSetServlet extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         PrintWriter out = response.getWriter();
         
-        String fwHost = request.getParameter("host");
         String pId = request.getParameter("parentId");
         String type = request.getParameter("type");
         String address = request.getParameter("address");
@@ -43,7 +42,7 @@ public class ParentControlSetServlet extends HttpServlet {
         String appList = request.getParameter("app_list");
         String online_time = request.getParameter("online_time");
         try {
-            boolean rs = new ParentControlService().addConfig(fwHost, pId, type, address, urlList, appList, online_time);
+            boolean rs = new ParentControlService().addConfig( pId, type, address, urlList, appList, online_time);
             out.print(rs);
         } finally {            
             out.close();
