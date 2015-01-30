@@ -43,36 +43,7 @@
                         <button class="btn btn-cons btn-primary" onclick="logOut()"><i class="fa fa-sign-out"></i> 登出</button>
                         <hr class="">
                         <ul class="main-menu">
-                            <li class="active">
-                                <a href="info.html?r=p" target="mainPage" id="r-config">
-                                    <span class="title"><i class="pg-folder"></i> 用户信息</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="systemConfig.html" target="mainPage">
-                                    <span class="title"><i class="pg-servers"></i> 系统配置</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="ipv6SpeedUp.html" target="mainPage">
-                                    <span class="title"><i class="pg-sent"></i> IPv6加速</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="parentContrl.html" target="mainPage">
-                                    <span class="title"><i class="pg-home"></i> 家长控制</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="adBlock.html" target="mainPage">
-                                    <span class="title"><i class="pg-minus_circle"></i> 广告屏蔽</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="remoteDownload.html?r=p" target="mainPage">
-                                    <span class="title"><i class="pg-spam"></i> 远程下载</span>
-                                </a>
-                            </li>
+ 
                         </ul>
                     </nav>
 
@@ -130,25 +101,93 @@
             delCookie("id");
             delCookie("apwd");
             delCookie("timestamp");
+        }else if(role == "c"){
+            delCookie("cum");
+            delCookie("pwd");
+            delCookie("ctimestamp");
+        }else{
+            alert("角色错误！");
         }
         window.location.href = "login.html";
       }
+      
+      // 根据角色生成菜单
+      function initMenu(r){
+            if(r =="p"){
+                var str = "<li class=\"active\">";
+                    str += "     <a href=\"info.html?r=" + r + "\" target=\"mainPage\" id=\"r-config\">";
+                    str += "         <span class=\"title\"><i class=\"pg-folder\"></i> 用户信息</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    str += " <li class=\"\">";
+                    str += "     <a href=\"systemConfig.html?r=" + r + "\" target=\"mainPage\">";
+                    str += "         <span class=\"title\"><i class=\"pg-servers\"></i> 系统配置</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    str += " <li>";
+                    str += "     <a href=\"ipv6SpeedUp.html?r=" + r + "\" target=\"mainPage\">";
+                    str += "         <span class=\"title\"><i class=\"pg-sent\"></i> IPv6加速</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    str += " <li>";
+                    str += "     <a href=\"parentContrl.html?r=" + r + "\" target=\"mainPage\">";
+                    str += "         <span class=\"title\"><i class=\"pg-home\"></i> 家长控制</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    str += " <li>";
+                    str += "     <a href=\"adBlock.html?r=" + r + "\" target=\"mainPage\">";
+                    str += "         <span class=\"title\"><i class=\"pg-minus_circle\"></i> 广告屏蔽</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    str += " <li>";
+                    str += "     <a href=\"remoteDownload.html?r=" + r + "\" target=\"mainPage\">";
+                    str += "         <span class=\"title\"><i class=\"pg-spam\"></i> 远程下载</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                  $(".main-menu").append(str);
+              }else if(r == "c"){
+                  var str = "<li class=\"active\">";
+                    str += "     <a href=\"info.html?r=" + r + "\" target=\"mainPage\" id=\"r-config\">";
+                    str += "         <span class=\"title\"><i class=\"pg-folder\"></i> 用户信息</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    str += " <li>";
+                    str += "     <a href=\"ipv6SpeedUp.html?r=" + r + "\" target=\"mainPage\">";
+                    str += "         <span class=\"title\"><i class=\"pg-sent\"></i> IPv6加速</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    str += " <li>";
+                    str += "     <a href=\"adBlock.html?r=" + r + "\" target=\"mainPage\">";
+                    str += "         <span class=\"title\"><i class=\"pg-minus_circle\"></i> 广告屏蔽</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    str += " <li>";
+                    str += "     <a href=\"remoteDownload.html?r=" + r + "\" target=\"mainPage\">";
+                    str += "         <span class=\"title\"><i class=\"pg-spam\"></i> 远程下载</span>";
+                    str += "     </a>";
+                    str += " </li>";
+                    $(".main-menu").append(str);
+                }else{
+                    alert("角色错误！");
+                }
+          
+            var lis = $(".main-menu").find("li");
+            lis.on("click",function(){
+                lis.removeClass("active");
+                $(this).addClass("active");
+            });
+      }
 
       $(function(){
-          var lis = $(".main-menu").find("li");
-          lis.on("click",function(){
-              lis.removeClass("active");
-              $(this).addClass("active");
-          });
           
-//          var role = getCookie("role");
           var role = GetQueryString("r");
+          initMenu(role);
           if(role == "p"){
             $("#current_user").html(getCookie("um"));
 //            $("#r-config").attr("href","info.html?r=p");
           }else if(role == "c"){
-//            $("#current_user").html(getCookie("cum"));
-                window.location.href = "info.html?r=c";
+            $("#current_user").html(getCookie("cum"));
+//                window.location.href = "info.html?r=c";
           }else{
               window.location.href = "login.html";
           }

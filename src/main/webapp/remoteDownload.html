@@ -37,10 +37,10 @@
                         </div>
                         <div class="panel-body">
                             <form role="form" class="" id="remtDwnldForm">
-                                <div class="form-group form-group-default ">
+<!--                                <div class="form-group form-group-default ">
                                     <label>存储Host</label>
                                     <input id="hostAddr" class="form-control" type="text" required="">
-                                </div>
+                                </div>-->
                                 <div class="form-group form-group-default ">
                                     <label>URL地址</label>
                                     <span class="help-block">多个URL地址以换行分隔。</span>
@@ -116,10 +116,10 @@
                             tmp.url = e;
                             urlArr.push(tmp);
                         });
-                        var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
+//                        var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                         $.ajax({
                             url:"user/remoteDownload",
-                            data:{username:username,password:password,role:role,urls:JSON.stringify(urlArr),host:hostAddr},
+                            data:{username:username,password:password,role:role,urls:JSON.stringify(urlArr)},
                             type:"POST",
                             dataType:"json",
                             success:function(data){

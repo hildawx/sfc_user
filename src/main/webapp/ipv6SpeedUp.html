@@ -36,10 +36,10 @@
                         </div>
                         <div class="panel-body">
                             <form role="form" class="" id="ipv6SpeedForm">
-                                <div class="form-group form-group-default">
+<!--                                <div class="form-group form-group-default">
                                     <label>DPI Host</label>
                                     <input type="text" id="hostAddr" required="" class="form-control">
-                                </div>
+                                </div>-->
                                 <div class="form-group form-group-default">
                                     <label>IPv6</label>
                                     <input type="text" id="ipv6" required="" class="form-control">
@@ -49,13 +49,16 @@
                                         <div class="form-group form-group-default input-group">
                                             <label>速率</label>
                                             <input type="text" id="speed" required="" class="form-control">
-                                            <span id="unit" class="input-group-addon">
-                                                Mb/s
-                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group form-group-default input-group">
+                                            <label>单位</label>
+                                            <input type="text" id="unit" class="form-control" value="Mb/s">
                                         </div>
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary">修改</button>
+                                <button type="submit" class="btn btn-primary">确定</button>
                             </form>
                         </div>
                     </div>
@@ -101,7 +104,7 @@
                     var ipv6 = $("#ipv6").val();
                     var speed = $("#speed").val();
                     var unit = "Mb/s"
-                    var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
+//                    var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                     var config = {};
                     config.ipv6 = ipv6;
                     config.speed = speed;
@@ -109,7 +112,7 @@
                     
                     $.ajax({
                         url:"user/Ipv6SpeedConfig",
-                        data:{parentId:parentId, host:hostAddr ,config:JSON.stringify(config)},
+                        data:{parentId:parentId,config:JSON.stringify(config)},
                         type:"POST",
                         dataType: "json",
                         success: function(data){

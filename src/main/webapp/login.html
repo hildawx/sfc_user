@@ -98,9 +98,11 @@
                                 window.location.href = "main.html?r=p";
                             }else if(status == "children"){
                                 setCookie("cum", username ,1);
+                                setCookie("ctimestamp",timestamp,1);
 //                                setCookie("role", status ,1);
                                 setCookie("pwd", password, 1);
-                                window.location.href = "info.html?r=c";
+//                                window.location.href = "info.html?r=c";
+                                window.location.href = "main.html?r=c";
                             }else if(status == "failure"){
                                 alert("登录失败！");
                             }else{

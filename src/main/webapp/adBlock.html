@@ -37,10 +37,10 @@
                         </div>
                         <div class="panel-body">
                             <form role="form" class="" id="adBlockForm">
-                                <div class="form-group form-group-default">
+<!--                                <div class="form-group form-group-default">
                                     <label>DPI Host</label>
                                     <input id="hostAddr" type="text" required="" class="form-control">
-                                </div>
+                                </div>-->
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-default">
@@ -204,10 +204,10 @@
                             if ($.trim(e) == "") return;
                             urlArr.push({url:e});
                         });
-                        var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
+//                        var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                         $.ajax({
                             url:"user/adBlock",
-                            data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urlArr),host:hostAddr},
+                            data:{parentId:parentId,type:type,address:ip,urls:JSON.stringify(urlArr)},
                             type:"POST",
                             dataType:"json",
                             success:function(data){
