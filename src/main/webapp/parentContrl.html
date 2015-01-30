@@ -221,21 +221,36 @@
                        $('#apps').select2();
                    }
                 });
+                
+                // 获取儿童ip地址
+                $.ajax({
+                   url:"user/ChildrenAccountList?parentId="+parentId ,
+                   dataType:"json",
+                   type:"GET",
+                   success:function(data){
+                       var ipSrc = data.aaData;
+                       var str = "";
+                       $.each(ipSrc,function(i,e){
+                           str += "<option value='"+e[2]+"'>"+e[2]+"</option>";
+                       });
+                       $("#ip").append(str);
+                   }
+                });
 
                 // 获取家长控制列表
-                $.ajax({
-                    url: "user/ParentCtrlList",
-                    type: "POST",
-                    data: {parentId: parentId},
-                    dataType: "json",
-                    success: function(data) {
-                        if (data) {
-                            configList(data);
-                        } else {
-                            alert("获取数据失败！");
-                        }
-                    }
-                });
+//                $.ajax({
+//                    url: "user/ParentCtrlList",
+//                    type: "POST",
+//                    data: {parentId: parentId},
+//                    dataType: "json",
+//                    success: function(data) {
+//                        if (data) {
+//                            configList(data);
+//                        } else {
+//                            alert("获取数据失败！");
+//                        }
+//                    }
+//                });
 
                 // 表单验证
                 $("#parentContrlForm").validate({
