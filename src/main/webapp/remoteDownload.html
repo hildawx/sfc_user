@@ -98,15 +98,19 @@
             
             $(function() {
                 var parentId = getCookie('id');
+                var role = GetQueryString("r");
                 
                 // 表单验证
                 $("#remtDwnldForm").validate({
                     submitHandler:function(){
-                        var username = getCookie('um');
-                        var password = getCookie('apwd');
-                        var role = GetQueryString("r");
                         if(role == "p"){
+                            var username = getCookie('um');
+                            var password = getCookie('apwd');
                             role = "parent";
+                        } else {
+                            username = getCookie('cum');
+                            password = getCookie('pwd');
+                            role = "other";
                         }
                         var urls = $("#urls").val().split("\n");
                         var urlArr = [];
