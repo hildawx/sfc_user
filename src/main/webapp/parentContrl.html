@@ -43,7 +43,14 @@
                                     <input id="hostAddr" type="text" required="" class="form-control">
                                 </div>-->
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label>儿童账号</label>
+                                            <select id="child" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+<!--                                    <div class="col-sm-6">
                                         <div class="form-group form-group-default">
                                             <label>IP地址类型</label>
                                             <select id="type" class="form-control">
@@ -55,11 +62,11 @@
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-default">
                                             <label>IP地址</label>
-                                            <!--<input id="ip" type="text" required="" class="form-control">-->
+                                            <input id="ip" type="text" required="" class="form-control">
                                             <select id="ip" class="form-control">
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="form-group form-group-default ">
                                     <label>url</label>
@@ -77,18 +84,20 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-default">
-                                            <label>上网时长</label>
-                                            <input id="onlineTime" type="text" required="" class="form-control">
+                                            <label>起始时间</label>
+                                            <input id="startTime" type="text" required="" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})"/>
+                                            <!--<input id="onlineTime" type="text" required="" class="form-control">-->
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group form-group-default">
-                                            <label>单位</label>
-                                            <select id="unit" class="form-control">
+                                            <label>结束时间</label>
+                                            <input id="endTime" type="text" required="" class="form-control" onFocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss',alwaysUseStartDate:true})"/>
+                                            <!--  <select id="unit" class="form-control">
                                                 <option value="h">小时</option>
                                                 <option value="m">分钟</option>
                                                 <option value="s">秒</option>
-                                            </select>
+                                            </select>-->
                                         </div>
                                     </div>
                                 </div>
@@ -139,6 +148,7 @@
         <script type="text/javascript" src="assets/plugins/bootstrap-tag/bootstrap-tagsinput.min.js"></script>
         <script type="text/javascript" src="assets/plugins/bootstrap-select2/select2.min.js"></script>
         <script type="text/javascript" src="pages/js/common.js"></script>
+        <script type="text/javascript" src="assets/plugins/datepicker/WdatePicker.js"></script>
 
         <script>
             var parentId = getCookie('id');
@@ -211,10 +221,67 @@
                     }
                 });
             }
+            
+            // 获取儿童账号列表
+            function childList(){
+                // 获取儿童ip地址
+                $.ajax({
+                   url:"user/ChildrenAccountList?parentId="+parentId ,
+                   dataType:"json",
+                   type:"GET",
+                   success:function(data){
+                       var ipSrc = data.aaData;
+                       var str = "";
+                       $.each(ipSrc,function(i,e){
+                           if(e[2] != "未登陆"){
+                               str += "<option value='"+e[2]+"'>"+e[0]+"</option>";
+                           }
+                       });
+                       $("#child").append(str);
+                   }
+                });
+            }
+            
+            // 验证是否为IPv4地址
+            function isIPv4(ip) {
+                var reg = /^((25[0-5])|(2[0-4][0-9])|(1[0-9][0-9])|([1-9][0-9]?))(\.((25[0-5])|(2[0-4][0-9])|(1[0-9][0-9])|([1-9][0-9])|[0-9])){3}$/
+                return reg.test(ip);
+            }
+            
+            // 验证是否为IPv6地址
+            function isIPv6(ipvalue) {
+                var matchRS = ipvalue.match(/:/g);
+                if (matchRS) {
+                    return matchRS.length <= 7 && /::/.test(ipvalue)? /^([\da-f]{1,4}(:|::)){1,6}[\da-f]{1,4}$/i.test(ipvalue) : /^([\da-f]{1,4}:){7}[\da-f]{1,4}$/i.test(ipvalue);
+                } else {
+                    return false;
+                }
+            }
+            
+            // 日期格式转化 yyyy-MM-dd HH:mm:ss -> xYxMxDxhxmxs
+            function dateFomatter(oldDate){
+                var oldA = oldDate.split(" ");
+                var old_date = oldA[0];
+                var old_time = oldA[1];
+                var old_date_A = old_date.split("-");
+                var oldY = old_date_A[0];
+                var oldM = old_date_A[1];
+                var oldD = old_date_A[2];
+                var old_time_A = old_time.split(":");
+                var oldh = old_time_A[0];
+                var oldm = old_time_A[1];
+                var olds = old_time_A[2];
+                var newDate = oldY + "Y" + oldM + "M" + oldD + "D" + oldh + "h" + oldm + "m" + olds + "s";
+                return newDate;
+                
+            }
+
 
             $(function() {
 
                 $('.custom-tag-input').tagsinput({});
+                
+                childList();
 
                 // 获取应用列表
                 $.ajax({
@@ -231,24 +298,7 @@
                        $('#apps').select2();
                    }
                 });
-                
-                // 获取儿童ip地址
-                $.ajax({
-                   url:"user/ChildrenAccountList?parentId="+parentId ,
-                   dataType:"json",
-                   type:"GET",
-                   success:function(data){
-                       var ipSrc = data.aaData;
-                       var str = "";
-                       $.each(ipSrc,function(i,e){
-                           if(e[2] != "未登陆"){
-                               str += "<option value='"+e[2]+"'>"+e[2]+"</option>";
-                           }
-                       });
-                       $("#ip").append(str);
-                   }
-                });
-
+            
                 // 获取家长控制列表
 //                $.ajax({
 //                    url: "user/ParentCtrlList",
@@ -267,8 +317,17 @@
                 // 表单验证
                 $("#parentContrlForm").validate({
                     submitHandler: function() {
-                        var type = $("#type option:selected").val();
-                        var ip = $("#ip option:selected").val();
+                        var ip = $("#child option:selected").val();
+                        var type = "";
+                        if(isIPv4(ip)){
+                            type = "IPv4";
+                        }else if(isIPv6(ip)){
+                            type = "IPv6";
+                        }else{
+                            type = "undefined";
+                        }
+//                        var type = $("#type option:selected").val();
+//                        var ip = $("#ip option:selected").val();
                         var urls = $("#urls").val().split(",");
                         var urlArr = [];
                         $.each(urls, function(i, e){
@@ -281,11 +340,18 @@
                             if ($.trim(e) == "") return;
                             appArr.push({app:e});
                         });
-                        var onlineTime = $("#onlineTime").val() + $("#unit option:selected").val();
+//                        var onlineTime = $("#onlineTime").val() + $("#unit option:selected").val();
+                        var startTime = $("#startTime").val();
+                        var endTime = $("#endTime").val();
+                        var onlineTime = [];
+                        var tmp = {};
+                        tmp.start_time = dateFomatter(startTime);
+                        tmp.end_time = dateFomatter(endTime);
+                        onlineTime.push(tmp);
 //                        var hostAddr = $("#hostAddr").val().replace(/(^http:\/\/)|(\/+$)/g, "");
                         $.ajax({
                             url: "user/ParentCtrl",
-                            data: {parentId: parentId, type: type, address: ip, url_list: JSON.stringify(urlArr), app_list: JSON.stringify(appArr), online_time: onlineTime},
+                            data: {parentId: parentId, type: type, address: ip, url_list: JSON.stringify(urlArr), app_list: JSON.stringify(appArr), online_time: JSON.stringify(onlineTime)},
                             type: "POST",
                             dataType: "json",
                             success: function(data) {

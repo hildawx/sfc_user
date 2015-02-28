@@ -42,7 +42,14 @@
                                     <input id="hostAddr" type="text" required="" class="form-control">
                                 </div>-->
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label>儿童账号</label>
+                                            <select id="child" class="form-control">
+                                            </select>
+                                        </div>
+                                    </div>
+<!--                                    <div class="col-sm-6">
                                         <div class="form-group form-group-default">
                                             <label>IP地址类型</label>
                                             <select id="type" class="form-control">
@@ -56,7 +63,7 @@
                                             <label>IP地址</label>
                                             <input id="ip" type="text" required="" class="form-control">
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
 <!--                                <div class="form-group form-group-default ">
                                     <label>广告地址</label>
@@ -174,30 +181,77 @@
                 });
             }
             
+            // 获取儿童账号列表
+            function childList(){
+                // 获取儿童ip地址
+                $.ajax({
+                   url:"user/ChildrenAccountList?parentId="+parentId ,
+                   dataType:"json",
+                   type:"GET",
+                   success:function(data){
+                       var ipSrc = data.aaData;
+                       var str = "";
+                       $.each(ipSrc,function(i,e){
+                           if(e[2] != "未登陆"){
+                               str += "<option value='"+e[2]+"'>"+e[0]+"</option>";
+                           }
+                       });
+                       $("#child").append(str);
+                   }
+                });
+            }
+            
+            // 验证是否为IPv4地址
+            function isIPv4(ip) {
+                var reg = /^((25[0-5])|(2[0-4][0-9])|(1[0-9][0-9])|([1-9][0-9]?))(\.((25[0-5])|(2[0-4][0-9])|(1[0-9][0-9])|([1-9][0-9])|[0-9])){3}$/
+                return reg.test(ip);
+            }
+            
+            // 验证是否为IPv6地址
+            function isIPv6(ipvalue) {
+                var matchRS = ipvalue.match(/:/g);
+                if (matchRS) {
+                    return matchRS.length <= 7 && /::/.test(ipvalue)? /^([\da-f]{1,4}(:|::)){1,6}[\da-f]{1,4}$/i.test(ipvalue) : /^([\da-f]{1,4}:){7}[\da-f]{1,4}$/i.test(ipvalue);
+                } else {
+                    return false;
+                }
+            }
+            
             $(function() {
                
                 $('.custom-tag-input').tagsinput({});
                 
+                childList();
+                
                 // 获取广告屏蔽列表
-                $.ajax({
-                   url:"user/adBlockList" ,
-                   type:"POST",
-                   data:{parentId:parentId},
-                   dataType:"json",
-                   success:function(data){
-                       if(data){
-                           configList(data);
-                       }else{
-                           alert("获取数据失败！");
-                       }
-                   }
-                });
+//                $.ajax({
+//                   url:"user/adBlockList" ,
+//                   type:"POST",
+//                   data:{parentId:parentId},
+//                   dataType:"json",
+//                   success:function(data){
+//                       if(data){
+//                           configList(data);
+//                       }else{
+//                           alert("获取数据失败！");
+//                       }
+//                   }
+//                });
                 
                 // 表单验证
                 $("#adBlockForm").validate({
                     submitHandler:function(){
-                        var type = $("#type option:selected").val();
-                        var ip = $("#ip").val();
+//                        var type = $("#type option:selected").val();
+//                        var ip = $("#ip").val();
+                        var ip = $("#child option:selected").val();
+                        var type = "";
+                        if(isIPv4(ip)){
+                            type = "IPv4";
+                        }else if(isIPv6(ip)){
+                            type = "IPv6";
+                        }else{
+                            type = "undefined";
+                        }
                         var urls = $("#urls").val().trim().split("\n");
                         var urlArr = [];
                         $.each(urls, function(i,e){
