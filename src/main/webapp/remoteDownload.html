@@ -44,11 +44,27 @@
                                 <div class="form-group form-group-default ">
                                     <label>URL地址</label>
                                     <span class="help-block">多个URL地址以换行分隔。</span>
-                                    <textarea id="urls" required="" class="form-control" style="height: 200px;"></textarea>
+                                    <textarea id="urls" required="" class="form-control" style="height: 120px;"></textarea>
                                 </div>
 
                                 <button type="submit" class="btn btn-primary">确定</button>
-                            </form>
+                            </form>                 
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="col-md-12 col-lg-12 col-xlg-12">
+
+                    <div class="panel panel-transparent no-border no-margin widget-loader-circle">
+                        <div class="panel-heading">
+                            <div class="panel-title">
+                                <i class="pg-extra"></i> ftp
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <iframe name="ftpFrame" id="ftpFrame" src="http://www.baidu.com" height="300" width="100%" scrolling="auto" frameborder="no" ></iframe>
+               
                         </div>
                     </div>
 
@@ -99,6 +115,16 @@
             $(function() {
                 var parentId = getCookie('id');
                 var role = GetQueryString("r");
+                
+                // 获取ftp地址
+                $.ajax({
+                    url:"user/getFtp",
+                    dataType:"json",
+                    type:"GET",
+                    success:function(data){
+                        $("#ftpFrame").attr("src",data.src);
+                    }
+                });
                 
                 // 表单验证
                 $("#remtDwnldForm").validate({
